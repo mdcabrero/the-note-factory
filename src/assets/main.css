@@ -1,0 +1,12 @@
+@import './base.css';
+@import './job-analysis.css';
+
+body {
+  position: relative;
+  text-rendering: optimizeSpeed;
+  font-family: 'NeueMontreal', sans-serif;
+  line-height: 1.5;
+  background-color: var(--cream-bg);
+  background-size: contain;
+  -webkit-font-smoothing: antialiased;
+}

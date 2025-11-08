@@ -1,0 +1,127 @@
+/* CSS Variables */
+:root {
+
+  /* ============================================
+     Z-INDEX SCALE
+     ============================================ */
+
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-popover: 500;
+  --z-tooltip: 600;
+}
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+html {
+  /* Prevent font size inflation */
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+
+/* Typography Improvements */
+
+
+/* Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1, h2, h3, h4,
+button, input, label {
+  line-height: 1.1;
+}
+
+/* Get rid of default styling for link elements */
+a {
+  color: inherit; 
+  text-decoration: inherit; 
+}
+
+button {
+   border: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    overflow: visible;
+
+    background: transparent;
+
+    /* inherit font & color from ancestor */
+    color: inherit;
+    font: inherit;
+
+    /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+    line-height: normal;
+
+    /* Corrects font smoothing for webkit */
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+
+
+}
+
+menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+  
+  /* ==========================================================================
+     Font Imports - NeueMontreal Family
+     ==========================================================================
+  
+  /* NeueMontreal Book */
+  @font-face {
+    font-family: 'NeueMontreal';
+    src: url('../fonts/PPNeueMontreal-Book.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  /* NeueMontreal Medium */
+  @font-face {
+    font-family: 'NeueMontreal';
+    src: url('../fonts/PPNeueMontreal-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+   
+  /* NeueMontreal Bold */
+  @font-face {
+    font-family: 'NeueMontreal';
+    src: url('../fonts/PPNeueMontreal-Bold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+
+
+  
