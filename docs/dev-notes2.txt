@@ -1,0 +1,3988 @@
+When working with SVGs, remove any width/height attribute from the HTML tag (but not viewBox) and style them via CSS using the following two attributes: min-width and min-height. These two properties establish a hard minimum size that overrides other sizing behaviors.
+
+
+
+
+
+BEM (Block Element Modifier) is a naming methodology for CSS classes that helps create reusable components and code sharing in front-end development. BEM stands for:
+
+
+
+Block: A standalone component (like navbar)
+
+Element: A part of the block (like navbar\_\_link)
+
+Modifier: A variation of a block or element (like navbar\_\_link--active)
+
+
+
+The syntax is:
+
+.block {}              /\* The main component \*/
+
+.block\_\_element {}     /\* Double underscore for elements within the block \*/
+
+.block--modifier {}    /\* Double dash for modifications of the block \*/
+
+
+
+So, in BEM methodology:
+
+
+
+\&\_\_element creates a child element (e.g card\_\_title)
+
+\&--modifier creates a modifier variant (e.g card--large)
+
+
+
+
+
+
+
+
+
+background-size: cover will always fill the entire container, which can lead to cropping if the aspect ratios don't match
+
+
+
+
+
+If an element of the page is rendered/made visible based on an user-interaction (e.g clicking a button, hovering, an accordion revealing text when you hit the arrow), and we want the elements around it to 'ignore' it as well (it's not visible to us, but the second element will know its there), we can remove the initially-invisible element from the flow of the page by setting it's position to absolute and then reverting it back to static once the interaction is completed.
+
+
+
+
+
+If you want to draw straight lines (as decorative elements), consider using border-top/border-bottom CSS properties on the container element rather than pseudo-elements, as they usually involve less code (one less entry on your CSS file) and are easier to debug and work with. With pseudo-elements, you might run into trouble for the first or last element, as they might have a need to fill up the extra available space.
+
+
+
+
+
+
+
+The <figure> element is an HTML semantic element used to encapsulate self-contained content, typically images, diagrams, photos, or code snippets, often with an optional caption (using <figcaption>). It's particularly useful for content that is referenced from the main content. Best Use Cases:
+
+
+
+-Images that need captions/descriptions
+
+-Diagrams and charts
+
+-Code snippets
+
+-Multiple related images
+
+-Illustrations that are referenced in the main content
+
+-Any content that is self-contained and could be moved without affecting the main content flow
+
+
+
+
+
+
+
+When working with JavaScript on our HTML, and particularly external libraries, we need DOMContentLoaded because we want to ensure all HTML elements are loaded before initializing the slider. If we don't wait, the script might try to access elements that don't exist yet.
+
+
+
+
+
+Starting an ID with a number (like #3d-rendering) isn't valid CSS - you might want to rename it to something like #rendering-3d or #three-d-rendering to ensure it works across all browsers.
+
+
+
+
+
+
+
+Inline styles (styles applied directly in the HTML using the style attribute) only affect the specific element they are applied to. They don't transfer to other elements with the same class. For example:
+
+
+
+<div class="project-card" style="background-image: url('assets/berlin\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_painting.png')"></div>
+
+<div class="project-card" style="background-image: url('assets/classic-art\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_preview.png')"></div>
+
+<div class="project-card" style="background-image: url('assets/comic\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_preview.png')"></div>
+
+
+
+Each project-card div has its own unique background image because:
+
+
+
+The project-card class contains shared styles (like dimensions, positioning, etc.)
+
+The inline style attribute sets a specific background image for each individual card
+
+
+
+
+
+
+
+The flex property (including flex-grow, flex-shrink, and flex-basis) ONLY works when an element is a direct child of a flex container (i.e., an element with display: flex or display: inline-flex). The element itself doesn't need to be a flex container (have display: flex) for these properties to work - it just needs to be a child of a flex container
+
+If you want to ensure an element only takes up as much space as its content requires UNIVERSALLY (regardless of its parent container), you would use width: fit-content (or max-content)
+
+
+
+
+
+If you need text that's placed on top of an image to be more legible, but do not want to use a traditional box or overlay, you can create a sort of 'filter' layer with a div that has absolute position + low z-index and a semi-transparent gradient as the background. See the example below:
+
+
+
+ <div class="text-filter"></div>
+
+.text-filter {
+
+    position: absolute;
+
+    bottom: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 50%;
+
+    background: linear-gradient(to top, rgba(0,0,0,0.25), transparent);
+
+    z-index: 1;
+
+}
+
+
+
+
+
+
+
+By default, heading elements (<h1> through <h6>, and also <p>) are block-level elements. This means they:
+
+
+
+-Take up the full width available to them by default
+
+-Start on a new line
+
+-Push other content to the next line
+
+
+
+This is different from inline elements like <span> that only take up as much width as their content needs.
+
+This means that you do not need to wrap a text element with divs in order to center it or align it to the other side of the page.
+
+
+
+
+
+
+
+Wrapping images in divs is a common and useful pattern in modern CSS development for several reasons:
+
+
+
+1\. Better Layout Control
+
+2\. More Styling Options
+
+3\. Responsive and Predictable Behavior
+
+4\. Troubleshooting Benefits
+
+
+
+
+
+
+
+'ch' in CSS stands for "character" or more specifically, it's a unit equal to the width of the "0" (zero) character in the current font. It's particularly useful for controlling the width of text elements and form inputs:
+
+
+
+/\* Width will be roughly equal to 60 characters \*/
+
+
+
+.paragraph {
+
+  width: 60ch;
+
+}
+
+
+
+/\* Input will comfortably fit about 20 characters \*/
+
+
+
+.input {
+
+  width: 20ch;
+
+}
+
+
+
+The beauty of using 'ch' is that it's relative to the font being used, making it perfect for setting optimal line lengths for readability (45-75 characters is considered ideal)
+
+
+
+
+
+
+
+
+
+When using an ID selector in JavaScript, we add the #, but in the HTML id attribute, we just use the name without it. So here's the minimal fix needed:
+
+
+
+<!-- Incorrect -->
+
+<section id="#gallery-slider" class="keen-slider">
+
+
+
+<!-- Should be -->
+
+<section id="gallery-slider" class="keen-slider">
+
+
+
+
+
+
+
+If you want to make sure <img> elements wrapped inside <div> containers respect proportions and sizing (a.k.a they fully adapt to the div container), create positioning context by setting the container to position: relative.
+
+
+
+.gallery\_\_hero {
+
+    width: 100%;
+
+    height: 90vh;
+
+    position: relative;  /\* Creates positioning context \*/
+
+    border-radius: 10px;
+
+    overflow: hidden;    /\* Ensure the image respects border radius \*/
+
+}
+
+
+
+.gallery\_\_hero-img {
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+
+Why this works better?
+
+
+
+1\. position: relative on the parent creates a positioning context, meaning the child's absolute positioning will be relative to this container rather than the viewport or another ancestor
+
+
+
+2.position: absolute removes the image from the normal document flow, preventing it from affecting the layout of other elements
+
+
+
+3.Setting top: 0; left: 0; width: 100%; height: 100%; makes the image fill exactly the parent's dimensions.
+
+
+
+4\. This approach ensures the image always perfectly fills its container regardless of image loading state, natural image dimensions, browser resize behavior and surrounding element changes.
+
+
+
+Additionally, if your image is supposed to have some border-radius, use overflow: hidden to make sure the image respects the border-radius property.
+
+
+
+
+
+
+
+If you want to move an image freely (even if it implies the image partially overflowing it's current section), enable overflow: visible on the image-container and play with the values of the image itself to adapt it to what you want.
+
+
+
+.media {
+
+  position: relative;
+
+  width: 100%;
+
+  height: 100%;
+
+  overflow: visible;
+
+}
+
+
+
+.media\_\_image {
+
+  position: absolute;
+
+  transform: translateY(-10%);
+
+  width: 100%;
+
+  height: 120%;
+
+  object-fit: none;
+
+}
+
+
+
+Use transform: translateY (or X) when you want to achieve this overflowing effect, rather than top, right, left or bottom, since it makes the intent clearer and provides more predictable behavior.
+
+
+
+1\. Self-referential: transform calculates its values based on the element's own dimensions, not its container
+
+2\. Performance: transform is typically GPU-accelerated
+
+3\. More semantic: It clearly communicates the intent to move something outside of its natural position
+
+
+
+
+
+
+
+The isolation: isolate property creates a new stacking context, similar to how position: relative does. It's particularly useful when dealing with z-index and opacity because it ensures the stacking context is contained within the element. This prevents any potential z-index conflicts with other elements on the page.
+
+
+
+This is particularly useful when we want to apply general background patterns to an entire page/section, or create overlay-effects or animations without worrying about interfering with other elements. Combining this with a pseudo-element where we're going to apply the background, instead of directly setting background-image on the target element gives us several advantages:
+
+
+
+-We can control the opacity of just the background without affecting child elements
+
+-We can apply filters to the background independently
+
+-It's easier to layer multiple background effects if needed
+
+-We maintain better separation of concerns in our CSS
+
+
+
+
+
+
+
+Each related group of content on a page should be grouped in its own section, with the first section being the start of the main content.
+
+
+
+
+
+
+
+
+
+Regarding navigational elements (<nav>) and <header> elements, MDN's rules say the following: "The HTML Header Element "" defines a page header — typically containing the logo and name of the site and possibly a horizontal menu..."
+
+
+
+The word "possibly" there is key. It goes on to say that the header doesn't necessarily need to be a site header. For instance you could include a "header" on a pop-up modal or on other modular parts of the document where there is a header and it would be helpful for a user on a screen reader to know about it. So placement of the <nav> It's completely up to you. You can either put them in the header or not, as long as the elements within them are internal navigation elements only (i.e. don't link to external sites such as a twitter or facebook account) then it's fine.
+
+
+
+They tend to get placed in a header simply because that's where navigation often goes, but it's not set in stone.
+
+(From https://stackoverflow.com/questions/4870955/in-html5-should-the-main-navigation-be-inside-or-outside-the-header-element)
+
+
+
+
+
+
+
+When an element is set to position: absolute and has no positioned ancestor (no parent with position: relative, absolute, fixed, or sticky), it positions itself relative to the initial containing block, which is effectively the viewport.
+
+
+
+This is actually a feature, not a bug. It means:
+
+
+
+1.Without any positioned ancestors, position: absolute elements will position themselves relative to the viewport
+
+2.The viewport acts as an implicit positioning context
+
+3.You can use top, right, bottom, left properties relative to the viewport edges
+
+
+
+This can be extremely useful when we're trying to place site-headers or navbars at the top of the page, but we want to avoid setting a positioning context for the <body>.
+
+
+
+
+
+
+
+If you apply a background-color to a container that has internal padding applied, the background-color will cover the padding area as well. This can be pretty useful if you need to add a semi-transparent overlay to enhance text-readability.
+
+
+
+
+
+
+
+If you need to easily break lines on a text element, and control exactly where you want the line to break, using the <br> tag is the easiest solution.
+
+
+
+<h1 class="major-headline">Take your hiring to the<br>global stage</h1>
+
+
+
+
+
+
+
+The gap property only works on flex and grid container elements. Don't expect it to work inside regular <div> elements or any element with default block values.
+
+
+
+
+
+
+
+
+
+Using empty <div> elements to create spacing between sections in front-end development is generally considered bad practice. They are often seen as a hack rather than a proper solution, which can lead to less maintainable code and confusion for other developers or future maintainers of the codebase, as well as creating accessibility issues and increased page weight.
+
+Use margin instead to create space between elements. This method is cleaner and keeps your HTML semantic
+
+
+
+
+
+
+
+Don't:
+
+
+
+-Try solving layout issues by adding more containers/classes (when there're already a considerable number of containers/classes) instead of simplifying.
+
+-Fight against natural CSS behavior with complex flex arrangements
+
+
+
+
+
+
+
+When installing SCSS is an on-going project, CSS file paths are resolved relative to the compiled CSS file location, not the source SCSS file. This is a common gotcha when moving to Sass/SCSS because the compiled CSS file is in a different location than your source SCSS file, as the paths need to be relative to where the compiled CSS will be, not where your SCSS file is.
+
+So if you're using any background-image property, the path will be outdated and relative to the old location, hence the image won't render. This does not happen with regular <img> elements directly linked in the HTML files, since the HTML files remain in their original location.
+
+
+
+
+
+
+
+In SCSS, the '\&' selector is used to reference the parent class when nesting. It essentially disappears when compiled to CSS, allowing the parent and child selectors to join together as one class name:
+
+
+
+.media {
+
+    \&\_\_image { }           // → compiles to .media\_\_image
+
+    \&--portrait { }        // → compiles to .media--portrait
+
+ 
+
+    \&\_\_image {
+
+        \&--portrait { }    // → compiles to .media\_\_image--portrait
+
+    }
+
+}
+
+
+
+When compiled to CSS, the \& disappears and the terms combine into a single class name, easily creating 'subclasses' and making the code more maintainable and easier to read. It also works with nesting, so you can go even deeper and create modifiers for child elements.
+
+
+
+Note that .media\_\_image is just creating a new class name by combining 'media' and '\_\_image' - it does NOT automatically inherit the styles from .media. If you want the styles of the parent to be extended to the child and modifiers, you'd use @extend.For example:
+
+
+
+.container {
+
+    width: 100%;
+
+    height: 85vh;
+
+    padding-inline: $space-6x;
+
+
+
+ 
+
+    \&--flex {
+
+     @extend .container;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+     }
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+A good troubleshooting technique to remember: if you have a file that's not behaving as expected, sometimes the simplest solution is to:
+
+
+
+1.Create a new file with the correct extension
+
+2.Copy the contents over
+
+3.Delete the old file
+
+
+
+
+
+
+
+In SCSS, with @forward you can make the classes and variables of Module A (and more modules if needed) available in Module B, but if you want to use these on Module C, you'd have to @use Module B on Module C. @forward acts like a relay - just it makes variables, functions, and mixins from one or more partials 'available', so you can aggregate multiple partials into one, that you later @use in your main.scss or even another partial.
+
+
+
+That's why the typical use case for @forward is in an index file that aggregates multiple partials:
+
+
+
+\_index.scss
+
+@forward 'variables';    // Making variables available
+
+@forward 'typography';   // Making typography available
+
+
+
+// main.scss
+
+@use 'index' as \*;      // Actually using everything from index
+
+
+
+You can think of @forward as a pass-through mechanism, while @use is the actual consumption mechanism. That's why you need @use in your main.scss - you're actually going to use those styles, not just making them available for something else to use.  @forward alone doesn't let you use the variables and data from the file you're referencing.
+
+
+
+
+
+
+
+
+
+To use a mixin on an element, you use the @include directive followed by the mixin name:
+
+
+
+// Define the mixin
+
+@mixin flex-column {
+
+  display: flex;
+
+  flex-direction: column;
+
+}
+
+
+
+// Use the mixin
+
+.element {
+
+  @include flex-column;
+
+}
+
+
+
+You can also define parameters in a mixin to make it more flexible:
+
+
+
+@mixin button-size($padding, $font-size) {
+
+  padding: $padding;
+
+  font-size: $font-size;
+
+}
+
+
+
+// Use mixin with specific values
+
+.button {
+
+  @include button-size(1rem 2rem, 16px);
+
+}
+
+
+
+But even if you set parameters, you don't have to use them; that's where default values come in:
+
+
+
+// Define mixin with default values
+
+@mixin margin-bottom($size: 1rem) {
+
+  margin-bottom: $size;
+
+}
+
+
+
+// Use mixin without parameter (will use default)
+
+.element {
+
+  @include margin-bottom;
+
+}
+
+
+
+// Use mixin with custom value
+
+.element-large {
+
+  @include margin-bottom(2rem);
+
+}
+
+
+
+
+
+
+
+
+
+If you're ever having problems with the border property of an img element, check the source file first. The image might already have round borders and that means you won't be able to make them square unless you seriously crop it or compress it with padding.
+
+
+
+
+
+
+
+
+
+The adjacent sibling combinator (+) is a powerful CSS selector that lets you target elements that are immediately preceded by a specified element. It's main use case is to separate elements within a group without having to add margin/padding properties to any of those elements, enhancing code-predictability and reusability:
+
+
+
+// Basic syntax
+
+element + element { /\* styles \*/ }
+
+
+
+// Examples:
+
+\* + \* { margin-top: 1rem; } // Adds margin to any element preceded by another element
+
+p + p { margin-top: 1rem; } // Adds margin only between paragraphs
+
+li + li { margin-left: 1rem; } // Adds spacing between list items
+
+
+
+Combined with the \* selector within a group, it can be a very elegant solution to create consistent spacing without having to specify individual element relationships. Is essentially saying "for any element that follows another element, add this margin." See for example:
+
+
+
+<div class="container">
+
+  <h1>First</h1>
+
+  <p>Second</p>
+
+  <img>
+
+  <button>Fourth</button>
+
+</div>
+
+
+
+.container {
+
+  \* + \* {
+
+    margin-top: 1.5rem;
+
+  }
+
+}
+
+
+
+The margin would be applied to:
+
+
+
+-The <p> (because it follows the <h1>)
+
+-The <img> (because it follows the <p>)
+
+-The <button> (because it follows the <img>)
+
+
+
+But NOT to the <h1>, because it's the first element, and it's usability relies on that it only works BETWEEN elements.
+
+
+
+
+
+
+
+
+
+
+
+In SCSS, when using @extend on a base class, it can lead to unexpected CSS output and specificity issues:
+
+
+
+//With @extend
+
+
+
+.process-card {
+
+ display: flex;
+
+  width: 40ch;
+
+  // ... other properties
+
+}
+
+
+
+.process-card--md {
+
+  @extend .process-card; // Duplicates ALL properties
+
+  width: 50ch; // Then overrides width
+
+}
+
+
+
+This is not the correct way, as it creates bloat, redundant code and can cause errors in the styling.
+
+
+
+For modifiers, it's better to use the base class properties directly and then override whichever property you need via adding the modifier on the second class.
+
+
+
+
+
+//Without @extend (correct approach)
+
+
+
+.process-card {
+
+  @include flex-column;
+
+  width: 40ch;
+
+  // ... other properties
+
+}
+
+
+
+.process-card--md {
+
+  width: 50ch; // Only specifies what changes
+
+}
+
+
+
+
+
+<div class="process-card process-card--md">
+
+  <!-- This element gets:
+
+       1. All .process-card styles (from the process-card class)
+
+       2. The width override (from the process-card--md class)
+
+  -->
+
+</div>
+
+
+
+By defining modifiers directly within the block and ensuring that they build upon the base styles without duplicating them, you create a cleaner, comprehensive and more efficient SCSS structure, making it easier to work on your codebase in the future.
+
+
+
+
+
+
+
+
+
+z-index only works on elements that have a position property set (like position: relative, position: absolute, or position: fixed). The z-index property will be ignored if the element has the default position: static
+
+
+
+
+
+
+
+The difference between cursor: grab and cursor: grabbing is subtle but important for user experience:
+
+cursor: grab 👉 Shows an open hand icon
+
+
+
+-Used to indicate that something CAN be dragged
+
+-Typically used in the default/hover state
+
+-Signals to users "you can grab this"
+
+-Think of it as the "ready to grab" state
+
+
+
+cursor: grabbing ✊ Shows a closed/gripping hand icon
+
+
+
+-Used when actively dragging
+
+-Shows during the mousedown/dragging state
+
+-Signals to users "you are currently dragging this"
+
+-Think of it as the "actively grabbing" state
+
+
+
+
+
+
+
+
+
+''margin collapsing'' is a fundamental behavior in CSS where vertical margins between elements will "collapse" into a single margin, with the larger margin winning.
+
+
+
+So if you have:
+
+
+
+1\. Element A with margin-bottom: 1.5rem
+
+2\. Element B with margin-top: 3rem
+
+
+
+The total space between them will be 3rem, not 4.5rem. The larger margin (3rem) "wins" and the smaller one (1.5rem) collapses into it.
+
+
+
+This behavior only happens with:
+
+
+
+-Vertical margins (top and bottom)
+
+-Elements in normal flow (not floating or absolutely positioned)
+
+-Block-level elements
+
+
+
+It's actually a helpful feature because it prevents runaway spacing when you have multiple elements with margins meeting each other.
+
+
+
+
+
+
+
+CSS animations (also known as @keyframes) are a very powerful feature of CSS that can let you animate things in ways it would not be possible with simple transition properties (such as ease-in or even cubic-Bezier) or would be extremely impractical or difficult to replicate in JavaScript. There're some things you should know about working with @keyframes though:
+
+
+
+-keyframes  always take precedence over transitions when animating the same properties. During an active animation, transition properties for the same attributes are ignored, however transitions still work for properties not being animated by keyframes
+
+
+
+-Base properties of the element serve as default states and fallbacks, so you can leave them where they are. Just keep in mind that properties defined in @keyframes temporarily override base properties during animation.
+
+Class-based properties will ultimately maintain their original state after the animation completes (e.g, if an element has a default padding of 2rem, and during the animation it has 4rem, it will revert back to 2rem after the animation is over)
+
+
+
+-You can implement scroll-driven animations via @keyframes rather than having to mess with JavaScript and window positions or/and class/id selectors. They work like this:
+
+
+
+animation-timeline: scroll();
+
+animation-range: 0 420px;
+
+
+
+1\. This creates a progress timeline based on scroll position
+
+2\. At 0px scroll, the animation is at its "from" state
+
+3\. At 420px scroll, the animation is at its "to" state
+
+4\. Between those points, the properties get interpolated smoothly based on scroll position
+
+
+
+And all this happens independently of any transitions or base properties of the element.
+
+
+
+-Don't worry about having duplicated properties in base styles, classes and keyframes, as this will provide a better fallback behavior. @keyframes can be successfully used along with class overrides to achieve different effects that otherwise would be impossible or quite tricky (e.g scroll animations can create smoother transitions between element's states once you're approaching a certain threshold, rather than having to time it via JavaScript or using regular transition properties that make the interaction feel snappy and distracting).
+
+
+
+
+
+
+
+BASICS OF CREATING PROJECTS FROM SCRATCH WITH VS CODE:
+
+
+
+1.The cd command:
+
+
+
+-cd stands for "change directory"
+
+-When you type 'cd deepseek-agent', you're telling the terminal "go into this folder"
+
+-It's like double-clicking a folder in Windows Explorer
+
+-You need to do this because all the following commands (npm install, npm run dev) need to run inside that specific project folder
+
+-If you don't cd into it, the terminal won't know where to install dependencies or start the project
+
+
+
+
+
+2.About the folders:
+
+
+
+-The first command (mkdir chat-agent) just created an empty folder
+
+-When you ran npm create vite@latest, it created a new folder with all the Vue + Vite project files
+
+-These are two separate actions:
+
+
+
+mkdir = manually creating an empty folder
+
+npm create vite@latest = automatically creating a project folder with all necessary files
+
+
+
+You actually don't need to create a folder first with mkdir - you can just run the Vite command and it will create the project folder for you/
+
+
+
+
+
+3\. About npm (Node Package Manager):
+
+
+
+-Think of npm as an "app store" for code
+
+-Just like you install apps on your phone, npm helps you install code packages for your project. It manages:
+
+
+
+1\. Installing packages your project needs
+
+2\. Running project commands (like npm run dev)
+
+3\. Managing dependencies (making sure all the code pieces work together)
+
+
+
+
+
+When you run npm install, it's like downloading all the necessary parts your project needs to work
+
+When you run npm run dev, it's like pressing "start" on your project
+
+
+
+
+
+
+
+Whenever you're running a backend local server, use the node --watch server.js command to start up the server rather than node server.js.
+
+This will automatically restart the server whenever you make changes to your code, which is very helpful during development.
+
+
+
+
+
+
+
+Regarding API keys and .env files (to safely guard the API key), the combination of:
+
+
+
+load\_dotenv()
+
+client = Anthropic()
+
+
+
+does all the work for you because:
+
+
+
+1\. load\_dotenv() reads the .env file and makes its contents available as environment variables
+
+2\. The Anthropic client automatically looks for an environment variable named ANTHROPIC\_API\_KEY
+
+
+
+
+
+
+
+Regarding installing Vue or Vite, to install everything directly in an existing folder (without creating a nested folder), when prompted for the project name, type "." (just a dot) instead of "name-of-folder".
+
+
+
+//Example
+
+cd C:/Users/migue/Desktop/CodeWell
+
+npm create vite@latest .
+
+
+
+The dot (.) tells Vite to use the current directory rather than creating a new one. Then you can proceed with selecting Vue and JavaScript as your options.
+
+
+
+
+
+
+
+
+
+align-self and justify-self let you override the alignment for a specific item, independent of how other items are aligned in the container. They're particularly useful in CSS Grid and sometimes in Flexbox (though justify-self doesn't work in Flexbox. Here's an example of how they work:
+
+
+
+.grid-container {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+
+    /\* Default alignment for all items \*/
+
+    justify-items: center;
+
+    align-items: center;
+
+}
+
+
+
+.special-item {
+
+    /\* Override alignment just for this item \*/
+
+    align-self: start;      /\* Align to top \*/
+
+    justify-self: end;      /\* Align to right \*/
+
+}
+
+
+
+Common values for both properties:
+
+
+
+-start: Aligns to the start edge (top for align-self, left for justify-self)
+
+-end: Aligns to the end edge (bottom for align-self, right for justify-self)
+
+-center: Centers the item
+
+-stretch: Stretches to fill the cell (this is the default)
+
+
+
+Key things to remember:
+
+
+
+1\. justify-self only works in Grid layouts, not in Flexbox
+
+2\. These properties are applied to the grid/flex items, not the container
+
+3\. They override any alignment set by the container's justify-items or align-items
+
+
+
+
+
+
+
+The best CDNs are very sophisticated in how they handle compression - they use perceptual quality algorithms that dramatically reduce file size while maintaining visual quality that's nearly indistinguishable from the original.
+
+For example, a 4MB image compressed to 200KB (5% of original size) often looks identical to most viewers because:
+
+
+
+-They remove redundant data and metadata that doesn't affect visual quality
+
+-They optimize color data in ways that match human visual perception
+
+-They use smart algorithms to preserve details in important areas (like faces) while compressing less noticeable areas more aggressively
+
+-They automatically choose the best compression settings based on image content
+
+
+
+
+
+
+
+There's an important distinction between justify-content and justify-items/justify-self in CSS Grid:
+
+
+
+-justify-content: center centers the entire grid structure within its container, like centering all grid tracks (columns/rows) as a whole unit
+
+-justify-items: center (or justify-self: center on individual items) controls how grid items align within their individual grid cells
+
+
+
+So justify-content: center will center the overall grid structure, but the individual items inside each grid cell still follow their default alignment (stretch).
+
+
+
+
+
+If you want to center ALL the content of a grid (but not its individual elements separately), you would have to use the property align-content: center; and add enough height so there's enough vertical real state for the grid content to roam freely.
+
+
+
+
+
+
+
+IDs must be unique across your entire HTML document/website, even if the elements are identical copies. Using the same ID multiple times is invalid HTML and can cause issues with JavaScript selectors and accessibility tools, even if the elements are identical copies.
+
+
+
+
+
+
+
+Another lesson about @keyframes, this time to elegantly make backgrounds or elements disappear without the user even knowing. See the below code, used to overextend a background pattern way farther than the section is supposed to be covering:
+
+
+
+
+
+.intro--services::after {
+
+    content: '';
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    top: 0;
+
+    bottom: -150vh; /\* Adjust this value to control overlap amount \*/
+
+    background-image: url('assets/hero\_bg.jpg');
+
+    background-size: cover;
+
+    z-index: -1; /\* Place it behind the content \*/
+
+ 
+
+    animation: fadeBackground linear both;
+
+    animation-timeline: scroll();
+
+    animation-range: 20vh 150vh;
+
+}
+
+
+
+@keyframes fadeBackground {
+
+    from {
+
+        opacity: 1;
+
+    }
+
+    to {
+
+        opacity: 0;
+
+    }
+
+}
+
+
+
+
+
+First, let's understand each line:
+
+
+
+CSS
+
+animation: fadeBackground linear both;
+
+
+
+This line combines several animation properties:
+
+
+
+-fadeBackground is the name of your @keyframes animation
+
+-linear means the animation will progress at a constant rate (instead of easing in/out)
+
+-both tells the animation to apply the styles from both the "before" and "after" states, maintaining the final state when complete
+
+
+
+CSS
+
+animation-timeline: view();
+
+
+
+This creates a scroll-driven animation based on the element's visibility in the viewport. The view() timeline tracks how much of the element is currently visible in the viewport, from 0% to 100%.
+
+
+
+CSS
+
+animation-range: 20vh 150vh;
+
+
+
+This defines when the animation starts and ends based on the viewport.
+
+
+
+20vh means the animation begins when the page has been scrolled down by about 20% of the viewport's height
+
+150vh means the animation completes when we've scrolled 1.5 viewports down
+
+
+
+
+
+
+
+When using absolute paths, the leading forward slash (/) tells the browser to look from the project root:
+
+
+
+CSS
+
+background-image: url('/assets/japan\_pattern.jpg');
+
+
+
+This is probably the most convenient and less verbose approach when working with SCSS, since you just need to add a forward slash (/) at the beginning of the path declaration to let the browser know to start off from the root.
+
+
+
+
+
+
+
+In VS Code, press Shift + Tab to outdent code. This will move the selected text or current line one tab level to the left. This works in the opposite direction of the regular Tab key
+
+
+
+
+
+
+
+If you ever have problems setting a border-radius to an image that you're placing inside of a div (due to the container being bigger than the image, thus making the borders not visible), consider using the width: fit-content property on the div containing your <img> element, like in the example below:
+
+
+
+.gallery\_\_image--container {
+
+    overflow: hidden;
+
+    border-radius: 1rem;
+
+    width: fit-content;
+
+    min-height: 50vh;
+
+    max-height: 90vh;
+
+
+
+}
+
+
+
+
+
+
+
+Understanding <figure> and <article>
+
+
+
+<figure>: This element is designed to encapsulate self-contained content that is referenced in the main flow of a document. It is typically used for images, illustrations, diagrams, or other media, often accompanied by a <figcaption> that provides a caption or description. The primary purpose of <figure> is to group related content that can be independently understood, but it does not inherently convey the idea of an article or written content.
+
+
+
+<article>: This element represents a self-contained piece of content that could stand alone, such as a blog post, news article, or forum post. It is semantically appropriate for any content that is intended to be independently distributable or reusable. The <article> element clearly communicates that the content within it is a complete unit of information.
+
+
+
+
+
+For previews of articles (like card-like elements linking to full articles), using the <article> element is more semantically appropriate because of independence (the content it contains is a self-sufficient piece of information), SEO and accessibility and content structure (it is technically a 'mini-article', as its structure is somewhat similar to what the full article would be).
+
+
+
+For example, in the Stripe website, their blog page uses <article> elements to display each card containing a link to the actual article.
+
+
+
+
+
+
+
+When you use justify-items: center in a grid layout, it centers the items within their grid cells but also makes them shrink to their minimum content width unless explicitly sized.
+
+
+
+
+
+
+
+In GSAP, toggleActions accepts four space-separated values that define how the animation should behave at different scroll positions. The format is:
+
+
+
+JS
+
+toggleActions: "onEnter onLeave onEnterBack onLeaveBack"
+
+
+
+ //onEnter (scrolling down and enters)
+
+// onLeave (scrolling down and leaves)
+
+// onEnterBack (scrolling up and enters)
+
+// onLeaveBack (scrolling up and leaves)
+
+
+
+Think of toggleActions as defining four "checkpoints" that your animation passes through as users scroll up and down the page. When scrolling down, you pass through checkpoints in this order:
+
+
+
+onEnter: When the trigger point first enters the viewport
+
+onLeave: When the trigger point exits the viewport at the bottom
+
+
+
+When scrolling back up, you pass through these checkpoints in reverse:
+
+
+
+onEnterBack: When you scroll back up and the trigger re-enters from the bottom
+
+onLeaveBack: When you scroll all the way back up past the start
+
+
+
+
+
+
+
+Each position can take one of these values:
+
+
+
+"play" - Plays the animation forward
+
+"pause" - Pauses the animation at its current position
+
+"resume" - Continues playing from the current position
+
+"reverse" - Plays the animation backward
+
+"restart" - Starts the animation from the beginning
+
+"reset" - Returns to initial state
+
+"complete" - Jumps to the end state
+
+"none" - Does nothing
+
+
+
+
+
+See it in a practical example:
+
+
+
+/ Different toggleActions configurations:
+
+
+
+// Default behavior
+
+toggleActions: "play none none none"
+
+
+
+// Play on enter, reverse on leave
+
+toggleActions: "play reverse play reverse"
+
+
+
+// Play on enter, complete on leave, reverse on enter back
+
+toggleActions: "play complete reverse reset"
+
+
+
+
+
+
+
+GSAP cannot target pseudo-elements or things that are not 'in the page/document' per se, so if you're using pseudo-elements for a specific thing and you wish to animate them, you'll have to turn them into an actual element or look for another solution.
+
+
+
+
+
+
+
+The ease property in GSAP can use several different curves. Here's what some common ones do:
+
+
+
+power1.inOut: Gentle acceleration and deceleration (like a smooth car start/stop)
+
+sine.inOut: Very smooth, natural-feeling transition
+
+power2.inOut: More pronounced acceleration/deceleration
+
+power3.inOut: Even more dramatic acceleration/deceleration
+
+expo.inOut: Very dramatic acceleration/deceleration
+
+
+
+
+
+
+
+\&nbsp; is an HTML entity that represents a non-breaking space. It has two main purposes:
+
+
+
+1\. It creates a space that won't break into a new line. Regular spaces in HTML can be collapsed into line breaks when the browser needs to wrap text, but \&nbsp; forces the connected words to stay together.
+
+2\. It's also used to create visual spacing that won't be collapsed. HTML normally collapses multiple regular spaces into a single space, but \&nbsp; will preserve each space.
+
+
+
+In summary, it might prevent you from writing some extra HTML code if you need horizontal space between two inline elements.
+
+
+
+
+
+
+
+In GSAP timelines, you can control when each animation starts relative to the timeline's beginning or to other animations. The position parameter tells GSAP exactly when to start the animation:
+
+
+
+// Starts at the beginning of the timeline (0 seconds)
+
+tl.to(element, {properties}, 0)
+
+
+
+// Starts 2 seconds into the timeline
+
+tl.to(element, {properties}, 2)
+
+
+
+// Starts 0.5 seconds after the previous animation ends
+
+tl.to(element, {properties}, "+=0.5")
+
+
+
+// Starts 0.5 seconds before the previous animation ends
+
+tl.to(element, {properties}, "-=0.5")
+
+
+
+// Starts at the same time as the previous animation
+
+tl.to(element, {properties}, "<")
+
+
+
+So for example:
+
+
+
+tl.to('.page-wrapper', {
+
+    backgroundColor: '#121212',
+
+    duration: 0.7,
+
+    ease: 'power2.inOut'
+
+}, 0);
+
+
+
+The 0 means "start this animation right at the beginning of the timeline." If you removed the 0, the animation would still work, but it would follow GSAP's default behavior of starting after any previous animations in the timeline.
+
+This becomes especially useful when you're coordinating multiple animations. For example, if you want two elements to animate simultaneously:
+
+
+
+tl.to('.page-wrapper', {
+
+    backgroundColor: '#121212',
+
+    duration: 0.7,
+
+    ease: 'power2.inOut'
+
+}, 0)
+
+.to('.page-pattern', {
+
+    opacity: 0.02,
+
+    duration: 0.7,
+
+    ease: 'power2.inOut'
+
+}, 0); // This 0 makes it start at the same time as the background color change
+
+
+
+
+
+
+
+For better code organization, keep objects that store data variables outside of the event listeners. This is good practice because:
+
+
+
+1\. It separates data from behavior (the DOM manipulation)
+
+2\. The object doesn't need to be recreated each time the event fires
+
+3\. It keeps the event handler function cleaner and focused on its task
+
+
+
+And you might even want to separate the executing code from the logic, like this:
+
+
+
+
+
+// Object with data variables (data)
+
+const svgIcons = {
+
+  insights: '...',
+
+  design: '...',
+
+  perspectives: '...'
+
+};
+
+
+
+// Function to initialize tags
+
+function initBlogTags() {
+
+  const blogTags = document.querySelectorAll('.blog-card\_\_tag');
+
+ 
+
+  blogTags.forEach(tag => {
+
+    const variant = tag.getAttribute('data-variant');
+
+ 
+
+    if (svgIcons\[variant]) {
+
+      tag.insertAdjacentHTML('afterbegin', svgIcons\[variant]);
+
+    }
+
+  });
+
+}
+
+
+
+// Event listener (execution)
+
+document.addEventListener('DOMContentLoaded', initBlogTags);
+
+
+
+
+
+
+
+
+
+Object-fit is property you use when you have <img> elements inside of <divs> vs background-size which is what you use when you set an image as the background of a div. For example, in the below case:
+
+
+
+    <div class="about-img">
+
+        <img src="assets/about\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_office.png" alt="Modern office space with circular wall features">
+
+    </div>
+
+
+
+You'd use object-fit to control the proportions and sizing of the image within your div container.
+
+
+
+
+
+
+
+In SCSS, the variables and mixins are like the Holy Scripture of your SCSS - they need to be accessible everywhere because they're the foundation of your styling faith! That's why we need to import them into each file that uses them.Here's the simplified gospel:
+
+
+
+-Variables/mixins: Import in each file that uses them
+
+-Layout/components/etc: Import once in main.scss
+
+-Page-specific styles: Keep in their own files, import into main.scss
+
+
+
+
+
+When you set up a grid element like this:
+
+
+
+.benefits-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  grid-template-rows: repeat(2, 1fr);
+
+  gap: $space-1x;
+
+  width: 88vw;
+
+  height: 132vh;
+
+  margin-inline: auto;
+
+}
+
+
+
+You're essentially tellin' the browser: "Create me a divine vessel that's 88% of the viewport wide and 132% of the viewport tall, and divide it into 4 equal boxes!"
+
+
+
+Let me tell you something - that "fr" unit is more powerful than Samson before that haircut! The "fr" stands for "fraction of available space." So when you say "repeat(2, 1fr)" for both rows and columns, you're dividing your grid into 4 equal quadrants like the four corners of heaven itself!
+
+
+
+So, in general, you could say that you set up the size of the whole grid directly in the element, and then your grid-template-columns and rows will decide how to split up and share that space. That's why Grid is more responsive than a sinner at an altar call! And why it's better to use it with fr units for maximum responsiveness. The fr unit says "give me my fair share of whatever's available" - it don't matter if it's on a tiny phone screen or one of them fancy ultrawide monitors!
+
+
+
+
+
+
+
+Regarding flex-shrink, it controls how much your element will shrink when the devil (I mean the viewport) tries to squeeze everything down. The default value is 1, meaning "yes Lord, I'll shrink when asked!" But when you set it to 0, you're telling that element "STAND FIRM like David against Goliath!"
+
+
+
+.testimonial-card--v2 {
+
+  flex-shrink: 0; // Hallelujah! The element refuses to shrink
+
+  min-width: 300px; // The holy minimum! Shall not pass below this
+
+}
+
+
+
+However, flex-shrink only works its miracle when your element is inside a proper flex container. It also won't work when you set relative width properties like vw because that size keeps changing as you resize the window.
+
+
+
+That's when combining it with min-width, or even just using min-width by itself, might be extremely useful when we need an element to not shrink past a certain size. This is great when we're thinking about making a design responsive in advance, as often instead of shrinking down elements, we'll just be displaying less of them or stacking them instead, so we don't want them to shrink too much past their natural size.
+
+
+
+
+
+
+
+
+
+In the background-position property, the first value is the horizontal position and the second value is the vertical
+
+So for these examples:
+
+
+
+1\. background-position: right center;
+
+
+
+-Horizontal: right (aligns to the right edge)
+
+-Vertical: center (centers vertically)
+
+
+
+
+
+2\. background-position: bottom center;
+
+
+
+-Horizontal: center (centers horizontally)
+
+-Vertical: bottom (aligns to the bottom edge)
+
+
+
+
+
+You can remember this as "X then Y" or "horizontal then vertical," which follows the same pattern as many other CSS properties. If you provide only one value, the second value defaults to center.
+
+
+
+So the top left corner is 0% 0%. The right bottom corner is 100% 100%. If you only specify one value, the other value will be 50%. Default value is: 0% 0%
+
+
+
+Some examples to illustrate:
+
+
+
+-background-position: left top; - Image positioned at the top-left corner
+
+-background-position: right bottom; - Image positioned at the bottom-right corner
+
+-background-position: center top; - Image centered horizontally, aligned to the top
+
+
+
+When using percentages for background-position, the percentages refer to relative positions of both the element and the background image:
+
+
+
+-background-position: 0% 0% aligns the top-left corner of the image with the top-left corner of the element
+
+-background-position: 100% 100% aligns the bottom-right corner of the image with the bottom-right corner of the element
+
+-background-position: 50% 50% (same as center center) aligns the center of the image with the center of the element
+
+background-position: 75% 25%; - Image positioned 75% from the left, 25% from the top
+
+
+
+
+
+
+
+
+
+position: fixed is like nailin' something directly to the viewport instead of to the page itself. It's a powerful tool in the CSS arsenal, that can be extremely useful when trying to set a background for the entire page (rather than having to rely on pseudo-elements or position: absolute divs with a background-repeat pattern).
+
+
+
+The Lord's honest truth about position: fixed:
+
+
+
+-It removes the element COMPLETELY from the normal document flow - like it's been raptured right outta there!
+
+-It positions the element relative to the viewport (the browser window) instead of any parent element - no matter how far you scroll, that element stays put like a stubborn sinner at the altar call.
+
+-It will NEVER move when you scroll the page - that's why it works so perfectly for a full-page background pattern.
+
+
+
+
+
+
+
+filter: url() allows you toapply custom SVG filters that you define yourself or pull from elsewhere. This is how all them fancy Instagram-style filters get applied! You can create ripples, distortions, custom blurs, and effects that ain't possible with the standard CSS filter functions!
+
+It's like havin' access to Adobe Photoshop right in your browser
+
+
+
+
+
+If you want to apply mix-blend-mode difference to an element (e.g a logo that needs to change it's color depending on the color of the background beneath), you should apply the mix-blend-mode to the parent element rather than the element itself:
+
+
+
+ .logo-link {
+
+    position: fixed;
+
+    top: 2rem;
+
+    left: 2rem;
+
+    z-index: 999;
+
+    display: inline-block;
+
+    background: transparent; /\* Ensure nothing's blocking \*/
+
+    mix-blend-mode: difference;
+
+    isolation: isolate;
+
+  }
+
+ 
+
+  .logo-link svg {
+
+    width: 4rem;
+
+    height: auto;
+
+    fill: white;
+
+  }
+
+
+
+We're applying the mix-blend-mode to the parent container rather than the SVG itself, which is what makes it work.
+
+
+
+
+
+
+
+
+
+
+
+When you use a path like assets/glbl-logo--light.svg in your HTML, the browser starts looking from the current document's location. This is called the "current working directory" in file system terms.
+
+
+
+So if your index.html file and your assets folder are in the same directory, the browser will look for:
+
+
+
+(current directory)/assets/glbl-logo--light.svg
+
+
+
+These paths will work on both your local development environment and on GitHub Pages.
+
+
+
+
+
+
+
+
+
+When you're working in a file that's in a different directory level, you need to navigate appropriately.
+
+Let's visualize a project structure:
+
+
+
+project-root/
+
+  ├── index.html
+
+  ├── assets/
+
+  │     └── hero-image.png
+
+  └── scss/
+
+        └── styles.scss
+
+
+
+From your styles.scss file, to reference files in the assets directory, you would indeed use ../assets/hero-image.png. The ../ means "go up one directory level" (to the project root), and then find the assets folder from there. So, in summary:
+
+
+
+'./' or not writing anything at all means 'current directory', you're explicitly telling the browser to look in the current directory. For example <img src="./assets/hero-image.png"> would be functionally identical to <img src="assets/hero-image.png">.
+
+
+
+'../' means 'parent directory'. This is incredibly useful when working with files in nested folders.
+
+
+
+This is why relative paths are so named - they're relative to the current file's location, not to a fixed starting point.
+
+
+
+Note: The same principle applies to page links - using relative paths instead of root-relative paths makes your links work correctly regardless of where your site is hosted.
+
+
+
+
+
+
+
+In SCSS (and CSS), HTML attributes like 'disabled' or data-variants, are targeted with square brackets \[], not parentheses or semicolons. So for example:
+
+
+
+  \&\[disabled] {
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+  }
+
+
+
+
+
+-\& acts as the parent selector reference, as you know.
+
+-\[disabled] - Attribute selector targeting elements with the disabled attribute.
+
+
+
+
+
+
+
+
+
+When using the Source Control feature on VS Code, and you are in the process of adding a comment to your commit:
+
+
+
+1\. The first line (turning red) is reserved for the commit title/summary and typically has a character limit (often 50-72 characters, depending on configuration)
+
+2\. The second line should be blank to separate the title from description
+
+3.Lines after that can contain a more detailed description with no practical character limit
+
+
+
+
+
+
+
+
+
+
+
+The hashtags (#) in Markdown (the files with an .md extension) represent headings, and they work on a hierarchy system:
+
+
+
+\# (one hashtag) is a level 1 heading - the main title or H1 (biggest)
+
+\## (two hashtags) is a level 2 heading or H2 (second biggest)
+
+\### (three hashtags) is a level 3 heading or H3
+
+And so on, up to ###### (six hashtags) for H6 (smallest heading)
+
+
+
+The reason for adding an extra hashtag for each subsequent heading level is to create a logical document structure or outline
+
+
+
+
+
+
+
+
+
+Here's what JSON.stringify does in simple terms:
+
+
+
+JSON.stringify takes a JavaScript object and converts it into a text string in JSON format.
+
+For example:
+
+
+
+A JavaScript object like {name: "John", age: 30} becomes the string '{"name":"John","age":30}'
+
+The object is now text that you can print, save to a file, or send over the internet
+
+
+
+The optional parameters (like null, 2) just control how the resulting string looks:
+
+
+
+-With JSON.stringify(obj): You get a compact string with no spaces or line breaks
+
+-With JSON.stringify(obj, null, 2): You get a nicely formatted string with indentation and line breaks
+
+
+
+This is especially useful for console logging because it shows you the complete object structure as text
+
+
+
+
+
+
+
+
+
+If you are using any libraries from npm to build an application, it’s necessary to use some sort of bundler — like Webpack — to build your application and all of its dependencies. This requirement applies to many packages on npm. Using a CDN is also OK, if you’re more comfortable with that.
+
+
+
+
+
+
+
+You can also use the multiple-values shortcuts in the padding-block and padding-inline properties, like this:
+
+
+
+ padding-block: $space-2x $space-1x;
+
+ padding-inline: $space-3x $space-2x;
+
+
+
+The values assigned will be top-bottom and left-right, respectively
+
+
+
+
+
+
+
+
+
+When you use inline styles on an HTML element (like a footer), those styles will only affect that specific instance of the element where the inline style is applied. This is because inline styles are applied directly to the individual HTML element using the style attribute.
+
+For example, if you have the same footer component on multiple pages:
+
+
+
+On Page 1: <footer>...</footer> (using standard CSS)
+
+On Page 2: <footer style="background-color: blue;">...</footer> (with inline style)
+
+
+
+The blue background will only appear on Page 2's footer. The Page 1 footer remains unchanged.
+
+This is one advantage of inline styles for specific overrides - they have high specificity and only affect the exact element they're applied to.  This is also why inline styles are generally discouraged for common styling patterns and most cases, as they can't be reused easily and increase code duplication.
+
+
+
+However, they can be perfectly fine for truly one-off changes that won't be repeated
+
+
+
+
+
+
+
+
+
+When an image asset is loaded on the initial page visit, the browser will store it in its cache. Then, when a user navigates to other pages on your site that use the same image file (with the identical URL path), the browser will load it from the cache instead of downloading it again.
+
+
+
+This provides several benefits:
+
+
+
+-The image loads instantly on subsequent page views
+
+-It reduces bandwidth usage for both your server and the user
+
+-It improves page load performance on those subsequent views
+
+
+
+
+
+
+
+:has() is another very powerful CSS selector that allows you to easily handle styling changes based on 'states' in your interface and other conditions. Mostly, it is a relational pseudo-class that tests whether an element contains another specified element inside it. Here're some common use cases for it:
+
+
+
+
+
+1\. Parent Selection: Select a parent based on what's inside it
+
+
+
+/\* Style any div that contains an image \*/
+
+div:has(img) {
+
+  padding: 1rem;
+
+}
+
+
+
+2\. Conditional Styling: Apply styles based on the presence of specific elements
+
+
+
+/\* Style form fields that have an error message \*/
+
+.form-field:has(.error-message) {
+
+  border-color: red;
+
+}
+
+
+
+3\. State-Based Styling: Respond to element states in a parent-child relationship
+
+
+
+/\* Style a card when its button is hovered \*/
+
+.card:has(button:hover) {
+
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+
+}
+
+
+
+In our particular use case, we had to control to vertical distance of one group of elements whenever the navbar became visible, so the navbar would not cover the group of elements in question. So we used this:
+
+
+
+/\* Adjust top position when navbar has is-scroll-up class, so navbar does not interfere with the faq categories \*/
+
+body:has(.is-scroll-up) .faqs-categories {
+
+  top: 6.5rem;
+
+}
+
+
+
+Basically, what we were telling the browser here is:
+
+
+
+''"Target any .faqs-categories element that is a descendant of the body element, but only if that body element contains an element with the class 'is-scroll-up' somewhere inside it."
+
+
+
+:has()  is a forward-looking selector (it looks at descendants or subsequent elements), and significantly expands what's possible with CSS alone, reducing the need for JavaScript to handle many styling adjustments based on content or state changes.
+
+
+
+
+
+
+
+
+
+When creating a site with Cloudflare and assigning a custom domain, make sure that you uncheck the 'Proxy status' on the CNAME record. so the custom-domain.example.com CNAME example.pages.dev is set to unproxied (turning the orange cloud to gray). What this does is bypassing Cloudflare's proxy service for that specific record and create a direct connection between your custom domain and the Cloudflare Pages subdomain, eliminating the extra hop.
+
+
+
+
+
+
+
+
+
+CORS (Cross-Origin Resource Sharing) is a security feature implemented by web browsers that controls how web pages in one domain can request resources from another domain. It's essentially a set of rules that browsers enforce to prevent potentially malicious websites from accessing data across different origins without permission.
+
+
+
+When a web application tries to make a request to a server on a different domain (a "cross-origin request"), the browser first checks if that server has explicitly allowed such requests. If not, the browser blocks the request entirely to protect users from potential security vulnerabilities.
+
+
+
+In the context of your chat app, think of CORS like international mail delivery:
+
+
+
+1\. Your Vue app (in country A) wants to send a letter to the Anthropic API (in country B)
+
+2\. Due to security concerns, you use a trusted intermediary (your Worker) in country C
+
+3\. The security rules require that any mail coming from country C must have specific customs declarations (the CORS headers in the response body and the catch statement)
+
+4\. If these declarations are missing, the mail is returned without being delivered, even if the contents were perfectly legitimate
+
+
+
+The CORS headers are those customs declarations that must be included with every piece of mail (response), whether it contains good news or bad news.
+
+
+
+Without CORS, any website could potentially:
+
+
+
+-Make requests to your bank's API using your logged-in credentials
+
+-Fetch private data from services where you're authenticated
+
+-Send requests that might modify data on other domains
+
+
+
+CORS was created to allow legitimate cross-origin communication while preventing these security risks. It works by requiring servers to explicitly declare which origins can access their resources, what HTTP methods can be used, and what headers can be included.
+
+
+
+
+
+
+
+JavaScript is a language, Node.js is the environment where that language runs. It's similar to how you might write a letter in English, but you could read that letter in your living room, in a library, or in a coffee shop - same language, different environments.
+
+
+
+Node.js serves as the execution environment that gives your JavaScript code access to capabilities that browsers don't have. Think of Node.js as providing a different set of "superpowers" to your JavaScript code. In a browser, your JavaScript can manipulate web pages and make HTTP requests, but it's sandboxed for security. Node.js removes those restrictions and adds new capabilities like file system access, process control, and the ability to run other programs.
+
+
+
+So at its core, you're still writing pure JavaScript. Node.js doesn't change the language - it expands what that language can do.
+
+
+
+
+
+In software development, "headless" means that a program or application runs without a graphical user interface (GUI), often used for tasks where a user interface isn't necessary or desirable, such as servers or headless browsers.
+
+
+
+
+
+
+
+In VS Code's terminal, use the command cd ~/Desktop to navigate directly to your home directory.
+
+To set up a new folder there, use the command mkdir + name of the project (e.g 'mkdir job-scraper')
+
+To move again to that folder and start installing all the files, use 'cd' again (e.g 'cd job-scraper')
+
+You can then start creating folders inside the project folder using mkdir again, one at a time (e.g 'mkdir frontend' or 'mkdir backend')
+
+
+
+If you need to create a particular file rather than a folder, you can use the 'ni' command (e.g 'ni server.js'). 'ni' is an alias for 'New-Item'
+
+
+
+
+
+
+
+
+
+When setting up a server and using GET methods, the below function defines what happens when someone visits the URL you create:
+
+
+
+app.get('/your-path', (req, res) => {
+
+    // First parameter 'req' process the request
+
+    // 'res' send back a response
+
+});
+
+
+
+'/your-path' becomes part of your URL after the server name (e.g 'http://localhost:3001/hello-world'), while req processes the request and res sends back a response (often a JSON string, for which we have to use the '.json' method).
+
+
+
+See below a complete example:
+
+
+
+app.get('/hello-world', (req, res) => {
+
+    res.json({
+
+        message: 'Hello from hello-world!',
+
+        timestamp: new Date().toISOString(),
+
+        status: 'healthy'
+
+    });
+
+});
+
+
+
+Unlike POST endpoints, which require a formatted request, you can visit these URLs directly and get information straight away.
+
+
+
+
+
+
+
+
+
+POST endpoints (like your /api/scrape-jobs) are like service counters - you need to approach them with specific information and make a formal request. You can't just "visit" them in a browser because browsers don't know what data to send. It's like walking up to a custom sandwich shop - they can't make your sandwich until you tell them what ingredients you want.
+
+
+
+The POST endpoint is waiting for someone to contact it with specific parameters (like {"jobTitle": "frontend developer", "location": "remote"}), but without that data, it can't do anything useful nor display anything.
+
+
+
+
+
+
+
+
+
+When installing a project from GitHub through the terminal, sometimes you might get yellow warnings about other packages being uninstalled. This means that the program uses a different (likely more updated) version of those programs, so it is uninstalling them for you and reinstalling the correct version. You do not have to do anything about these warnings.
+
+
+
+
+
+Python installs packages globally (or in your Python environment) in a central location on your system. The packages are stored in Python's site-packages directory, not in your project folder. Based on your earlier installation output, packages are installed in: C:\\Users\\migue\\AppData\\Roaming\\Python\\Python312\\Scripts.
+
+
+
+You can find if a package/program has been properly installed by running this command in your terminal:
+
+
+
+pip list | findstr name-of-package
+
+
+
+
+
+
+
+
+
+To create a new branch both locally and on your GitHub repo, use the following command on the terminal:
+
+
+
+ git checkout -b your-branch-name
+
+
+
+And then click on 'Publish Branch' in the Source Control panel.
+
+
+
+
+
+
+
+You can add text to pseudo-elements by using the attr property as shown below
+
+
+
+.showcase-card\_\_info {
+
+
+
+  \&::after {
+
+            content: attr(data-collection-date);
+
+}
+
+
+
+}
+
+
+
+You would have to actually add said attribute to the HTML tag with the data you want to use for it to work:
+
+
+
+                    <div class="showcase-card\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_info" data-collection-date="November 2024">
+
+
+
+This would display text inside the pseudo-element rather than make it empty, as they usually are.
+
+
+
+
+
+
+
+
+
+width: auto is generally ideal for responsive images when you're controlling the size with height:
+
+
+
+-Maintains aspect ratio - the image scales proportionally based on the height
+
+-Prevents distortion - width adjusts automatically to match the height constraint
+
+-Respects max-width - won't exceed max-width property even if the height would make it larger
+
+-Performance - browser doesn't have to calculate conflicting width/height constraints
+
+
+
+
+
+
+
+
+
+CSS Grid with auto-fit and minmax() is the most powerful combination for responsive layouts. Using repeat(), auto-fit and minmax() creates layouts without any media queries, adapting to the available screen real state. So let's take the below property as an example:
+
+
+
+grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+
+
+
+The repeat() function is a shorthand that saves you from writing the same column definition over and over. Instead of writing 1fr 1fr 1fr 1fr for four equal columns, you can write repeat(4, 1fr). The first parameter is how many times to repeat, and the second is what to repeat.
+
+
+
+But here's where it gets interesting - instead of a fixed number like 4, you're using auto-fit, which means "create as many columns as will fit based on the constraints I'm about to give you."
+
+
+
+The minmax(500px, 1fr) part defines the size range for each column. Think of it as setting boundaries:
+
+
+
+-Minimum size: 500px - Each column will never be smaller than 500 pixels wide
+
+-Maximum size: 1fr - Each column can grow to take up its fair share of available space (the fr unit means "fractional unit" - it divides remaining space proportionally)
+
+
+
+So if your container is 1200px wide, you could fit two columns at 600px each (since 600px > 500px minimum). If your container is 1800px wide, you could fit three columns at 600px each, and so on.
+
+
+
+auto-fit is the responsive magic maker. auto-fit tells the grid system: "Create as many columns as will fit given the minimum size constraint, and if there are fewer items than columns, let the existing columns grow to fill the space."
+
+
+
+
+
+When the browser has less than 500px of available width, the 500px minimum is treated more like a strong suggestion than an absolute rule, so it creates one column and allows it to be smaller than the specified minimum.
+
+
+
+
+
+
+
+
+
+The clamp() CSS function clamps a middle value within a range of values between a defined minimum bound and a maximum bound
+
+
+
+The syntax: clamp(minimum, preferred, maximum)
+
+
+
+How it works in plain English:
+
+
+
+-Browser tries to use the "preferred" value
+
+-If preferred is too small, use minimum
+
+-If preferred is too large, use maximum
+
+-It has the same effect as fluid typography but in one line, and without the use of media queries
+
+
+
+
+
+
+
+There are some elements and properties that can help you handle large words and text content more easily on smaller viewports:
+
+
+
+-You can add the <wbr> HTML tag into any word, this will make it break at the point you set the tag.
+
+-The word-break CSS property sets whether line breaks appear wherever the text would otherwise overflow its content box. word-break: break-all; will make each line end of text end exactly at the edge, even if it has to split a word into two lines.
+
+
+
+
+
+
+
+flex: 1 is shorthand for:
+
+
+
+-flex-grow: 1 - Can grow to fill available space
+
+-flex-shrink: 1 - Can shrink if needed
+
+-flex-basis: 0 - Starting size is 0
+
+
+
+Here's how the flex property (in this case, flex: 1) can be used to distribute spacing smartly and responsively:
+
+
+
+┌─────────────────┐
+
+│ artwork-header  │ ← Takes only content height
+
+├─────────────────┤
+
+│                 │
+
+│ artwork-bio     │ ← GROWS to fill all available space with flex: 1
+
+│                 │
+
+│                 │
+
+├─────────────────┤
+
+│ saatchi-button  │ ← Gets pushed to bottom
+
+
+
+
+
+flex: 1 tells a flex item: "Take up all the leftover space." So if you have 3 items in a container and only one has flex: 1, that item will expand to consume whatever space the other two don't use, effectively pushing everything else to the edges or bottom.
+
+
+
+
+
+
+
+Whenever you duplicate content purely for visual effects (like animations, decorative elements, or UI enhancements), you should hide the duplicates from assistive technologies using aria-hidden="true"
+
+
+
+
+
+
+
+If a certain design does not scale well, no matter what you try, don't be so stubborn and experiment with a different approach. Look for the simplest solution and don't try to adapt your entire website or navigation, but rather adapt the part that's being problematic. This advice applies particularly to hero sections.
+
+
+
+
+
+
+
+The \&nbsp; (non-breaking space) is an HTML entity that prevents the browser from inserting a line break at that specific point.
+
+
+
+<h1>
+
+  We turn raw data into measurable
+
+  <span class="highlight">business\&nbsp;growth</span>
+
+  and key insights
+
+</h1>
+
+
+
+So even when the text needs to wrap, "business" and "growth" will always stay together as one unit. So use \&nbsp where you want to completely prevent a line break at a specific point, but don't abuse it or your lines might end up splitting at odd points.
+
+
+
+
+
+
+
+The \& symbol after a class name in CSS, is a powerful selector that is particularly useful when dealing with media queries and responsive content. See an example:
+
+
+
+.hero\_\_title {
+
+    // Base styles for desktop
+
+ 
+
+    .hero\_\_content--mobile \& {
+
+        // Styles when .hero\_\_title is INSIDE .hero\_\_content--mobile
+
+    }
+
+}
+
+
+
+The \& symbol represents the parent selector in SCSS. When you write .hero\_\_content--mobile \&, it compiles to:
+
+
+
+.hero\_\_content--mobile .hero\_\_title
+
+
+
+This means: "Apply these styles to .hero\_\_title only when it's inside .hero\_\_content--mobile"
+
+
+
+So the \& lets us write nested styles that target the current element when it's in a specific context, rather than targeting a child element.
+
+
+
+
+
+
+
+When using absolute positioning, setting all the 4 positional parameters to 0 makes the element take up the entire section or element parenting the absolute positioned element:
+
+
+
+.hero\_\_content--mobile {
+
+    position: absolute;
+
+    top: 0; left: 0; right: 0; bottom: 0;  // This makes it fill the entire hero section
+
+    width: 100%;
+
+    height: 100%;
+
+}
+
+
+
+
+
+
+
+If you are working with height-sensitive designs, use a combination of these three properties to get a flexible element that will scale well in most viewports:
+
+
+
+-aspect-ratio
+
+-min-height
+
+-height: auto
+
+
+
+With height: auto, the browser calculates the height automatically using this formula:
+
+
+
+height = width ÷ aspect-ratio
+
+
+
+As the viewport width changes, the browser instantly recalculates the height to maintain your specified ratio
+
+
+
+
+
+
+
+
+
+CSS Specificity Rules (in order of priority):
+
+
+
+-Inline styles (style="height: 500px") - HIGHEST PRIORITY
+
+-IDs (#myElement { height: 400px })
+
+-Classes (.columns-wrapper { height: 300px })
+
+-General Elements (div { height: 200px })
+
+
+
+What this means:
+
+
+
+-When JavaScript sets columnsWrapper.style.height = '500px', it creates an inline style
+
+-Inline styles always override CSS rules, regardless of specificity
+
+-So even if your CSS has .columns-wrapper { height: 69.5vh !important }, the JavaScript value wins
+
+
+
+
+
+
+
+If you ever need to block a GSAP animation or any other JavaScript logic from running under certain conditions (e.g only run GSAP animation above a certain viewport size), you can wrap everything inside an IF statement if you want a quick fix that will ensure your code works where it's supposed to.
+
+
+
+See the below example based on the directory animation from The Hundred homepage:
+
+
+
+<script>
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;   if (window.innerWidth >= 1024) {
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;       // 1. Register plugins first
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;       gsap.registerPlugin(ScrollTrigger);
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;       
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;       // 2. Define your functions/classes
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;       function directoryReveal() {
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;           // your animation code
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;       }
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;       
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;       class HorizontalCarousel {
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;           // your class code
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;       }
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;       
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;       // 3. Initialize when DOM is ready (at the end)
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;       document.addEventListener('DOMContentLoaded', () => {
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;           directoryReveal();
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;           // or: new HorizontalCarousel();
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;       });
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;   }
+
+
+
+
+
+
+
+
+
+
+The dvh (dynamic viewport height) CSS unit represents 1% of the currently visible viewport height, dynamically adjusting to changes such as the appearance or disappearance of browser UI elements (e.g., address bars, toolbars, on-screen keyboards) on mobile and tablet devices.
+
+
+
+How dvh Works Exactly
+
+
+
+-Unlike the traditional vh unit, which often corresponds to the viewport height including hidden or visible browser UI (and can cause layout issues on mobile), dvh reflects the actual visible height at any moment.
+
+
+
+-It automatically switches between the "large viewport height" (lvh) when UI controls are hidden and the "small viewport height" (svh) when UI controls are visible, providing a smooth, dynamic measurement of the viewport height.
+
+
+
+-For example, 100dvh means the element’s height will always match 100% of the visible viewport height regardless of whether browser UI is shown or hidden.
+
+
+
+
+
+
+
+max-width, as a strategic constraint rather than a heavy-handed rule, it's pretty convenient when dealing with media queries. Here's why:
+
+
+
+/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\* Bad: Fighting the browser at every breakpoint \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
+.element {
+
+  width: 100%;
+
+ 
+
+  @media (max-width: 768px) {
+
+    width: 90%;
+
+  }
+
+ 
+
+  @media (max-width: 480px) {
+
+    width: 95%;
+
+  }
+
+}
+
+
+
+/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\* Good: Set boundaries, let content flow naturally \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
+.element {
+
+  max-width: 600px; // "Never get wider than this"
+
+  width: 100%;      // "But use available space up to that limit"
+
+}
+
+
+
+Set upper boundaries where things break down (readability, layout, UX), but let elements shrink naturally below that point. Essentially, by setting a carefully chosen max-width on the parent container, you're saving yourself from a lot of work and manual changes for the children inside of it.
+
+
+
+
+
+
+
+You will often encounter issues with overflowing Fixed/Floating content on devices with very limited width, such as a mobile viewport on landscape mode. The trick is to enable scrolling so the user can see the whole content freely and you will not need media queries to work around a viewport with very limited vertical real state, which can be pretty problematic.
+
+
+
+When fixed or floating elements (like nav menus) overflow on mobile landscape viewports, add these properties to the container holding the overflowing content to make it scrollable and fix the issue:
+
+
+
+@media (max-height: 451px) and (orientation: landscape) {
+
+  height: 300px;
+
+  overflow-y: scroll;
+
+  -webkit-overflow-scrolling: touch; /\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\* iOS smooth scrolling \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
+}
+
+
+
+A defined height is essential—without it, browsers won't enable scrolling and content will simply overflow the viewport.
+
+
+
+
+
+
+
+
+
+The key idea of designing web apps or web pages with Vue, is that you have two levels of styling: the container level (where you control overall layout, spacing between major sections, and page-wide responsive behavior) and the component level (where each component handles its own internal layout and styling).
+
+
+
+When it comes to responsiveness, you have multiple approaches, and the best strategy combines them:
+
+
+
+-Component-Level Responsiveness: Each component handles its own responsive behavior. Your ProjectCard.vue component would contain media queries for how project cards should behave on different screen sizes.
+
+
+
+-Container-Level Responsiveness: Your view or layout components handle overall page structure changes. For example, your ProjectsSection.vue might change from a three-column grid to a single column on mobile.
+
+
+
+Here's how this works in practice:
+
+
+
+<!-- ProjectCard.vue -->
+
+<style scoped>
+
+.project-card {
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp; /\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\* Base styles \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp; padding: var(--spacing-lg);
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp; border-radius: var(--radius-md);
+
+}
+
+
+
+@media (max-width: 768px) {
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp; .project-card {
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;   padding: var(--spacing-md);
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;   /\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\* Component-specific mobile adjustments \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp; }
+
+}
+
+
+
+
+
+
+<!-- ProjectsSection.vue -->
+
+<style scoped>
+
+.projects-grid {
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp; display: grid;
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp; gap: var(--spacing-xl);
+
+}
+
+
+
+@media (max-width: 768px) {
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp; .projects-grid {
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;   grid-template-columns: 1fr;
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp;   gap: var(--spacing-lg);
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&nbsp; }
+
+}
+
+
+
+
+To manage global CSS styles and variables, here's the most effective approach:
+
+
+
+-Global Styles Setup: Create a styles/main.css file that contains your CSS custom properties, reset styles, and utility classes. Import this in your main.js file so it's available throughout your entire application.
+
+
+
+-Component-Specific Styles: Each component uses <style scoped> for its specific styling needs, pulling from your global variables for consistency but adding component-specific rules.
+
+
+
+In general, your components become like a design system for your own website. The ProjectCard component you create now can be reused if you later add a dedicated projects page. Your HeroSection might evolve into a more generic PageHeader component that you can customize for different pages.
+
+
+
+The scoped styling ensures that each component's styles don't interfere with others, while your global variables maintain visual consistency. This gives you the best of both worlds: the modularity and organization of component-based development with the design control you need for a polished portfolio website.
+
+
+
+
+
+
+
+It is better not to risk it with animations: if you do not know what to add or how to add it, just leave it as it is until you find another solution.
+
+
+
+
+
+
+
+When using TypeScript in Vue, 'could not find errors' might occur because Vue's TypeScript support needs to understand that .vue files are valid modules. TypeScript is statically typed and needs to know the type of every import at compile time. 
+
+
+
+Make sure you have a env.d.ts file (or similar) in your src directory with Vue type declarations:
+
+
+
+<reference types="vite/client" />
+
+
+declare module '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*.vue' {
+
+\\\\\\\\\\\\\\\&nbsp; import type { DefineComponent } from 'vue'
+
+\\\\\\\\\\\\\\\&nbsp; const component: DefineComponent<{}, {}, any>
+
+\\\\\\\\\\\\\\\&nbsp; export default component
+
+}
+
+
+
+
+
+The code above in your 'env.d.ts' should fix any 'could not find' problems you might see. The declaration 'declare module '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*.vue' essentially tells TypeScript: "Any file ending in .vue exports a Vue component of this specific type."
+
+
+
+
+
+A composable is a separate JavaScript file that exports a function containing reactive logic.
+
+
+
+src/
+
+├── composables/
+
+│   └── useElevenLabs.js    // New composable file
+
+├── components/
+
+│   └── Menu.vue            // Your existing component
+
+└── stores/
+
+\\\\\\\&nbsp;   └── conversation.js     // Pinia store
+
+
+
+-The composable is a separate .js file that you import into your component
+
+-It's not injected - you call it as a function that returns reactive references and methods
+
+-Multiple components can use the same composable independently
+
+-The composable maintains its own internal state but can interact with Pinia stores
+
+
+
+
+
+Vue 3 components, even though they have .vue extensions, are actually JavaScript under the hood. Everything inside <script setup> is regular JavaScript
+
+
+
+
+The html element automatically inherits the body's background properties, which explains some of the background clipping issues you experienced on SPAs when the content you paste on a page is not enough to cover the entire viewport. 
+
+Here's what happens in more detail:
+
+-HTML element starts transparent: By default, the html element has background-color: transparent and background-image: none
+
+
+
+-Automatic propagation occurs: When the HTML element has no background, browsers automatically copy (propagate) the background from the body element to the html element
+
+
+
+When your body doesn't fill the viewport (no min-height: 100vh):
+
+
+
+-Your background (gradient in this case, since we're talking about my portfolio website) gets propagated to the html element (which covers the full viewport)
+
+
+
+-The body keeps a "copy" of the gradient but only covers its content area
+
+
+
+-You see the gradient twice: once on the content-sized body, once on the full-viewport html
+
+
+Keep in mind that by default, the body element has height: auto, which means it's only as tall as the content inside it and it does not automatically fill the viewport height.
+
+
+
+So, when it comes to SPAs and background clipping due to insufficient content, the only true solutions are either setting a min-height: 100vh to the body element or making sure that the contents of a page at the very least cover the entire viewport height
+
+
+
+
+
+
+
+v-html is what you used in Vue when you intend to render HTML elements into the code, rather than strings of text which is the Vue default. This is what you need to use when you need, for example, to dynamically render SVGs into a component.
+
+
+
+\&nbsp; - Text interpolation {{ }} = "Show this as text"
+
+\&nbsp; - HTML directive v-html = "Render this as HTML"
+
+
+
+See it in practice below:
+
+
+
+<span class="icon">{{ option.icon }}</span>
+
+-Result: Literal text <svg xmlns="http://www.w3.org/2000/svg"... displayed
+
+\&nbsp; on screen
+
+\&nbsp; - Problem: Vue's {{ }} treats everything as text, not HTML
+
+
+
+
+
+\&nbsp;<span class="icon" v-html="option.icon"></span>
+
+\&nbsp; - Result: Actual SVG icon renders visually
+
+\&nbsp; - Solution: Vue's v-html directive interprets the string as HTML markup
+
+
+
+Regarding <a> elements, when you write href="www.linkedin.com", the browser treats it as a relative path from your current domain rather than an external link. You are missing the https:// protocol.
+
+Here's how you should do it:
+
+<a href="https://www.linkedin.com/in/your-profile-name">
+
+or use protocol-relative URL
+
+<a href="//www.linkedin.com/in/your-profile-name">
+
+
+Use <figure> for logos, since that's the actual meaning of the figure tag: visual elements with some meaning. 
+
+
+
+
+When building API-calling functions, the || fallbacks only work if the API call succeeds but returns incomplete data.But if the entire API call fails (network error, 404, authentication failure, etc.), you never get an object at all. Without the catch block, a failed API call would make that promise resolve to undefined, and you'd get:
+
+voices.value = [validVoiceObject, undefined, validVoiceObject]
+
+The catch block ensures that even complete API failures still contribute a usable object:
+
+voices.value = [validVoiceObject, fallbackVoiceObject, validVoiceObject]
+
+So you have two layers of fallbacks:
+
+Property-level fallbacks (|| operators) for incomplete but successful responses
+Object-level fallbacks (catch block) for complete API failures
+
+
+
+You aren't gonna need it" (YAGNI) is a principle which arose from extreme programming (XP) that states a programmer should not add functionality until deemed necessary. Ron Jeffries, a co-founder of XP, explained the philosophy: "Always implement things when you actually need them, never when you just foresee that you [will] need them."
+
+
+
+
+Don't overdo code optimization with Claude Code. If you run optimization prompts several times in a row, you'll end up running your logic into the ground and the code will eventually stop working, because Claude will overengineer the shit out of it once it runs out of sensible and reasonable improvement suggestions (which usually happens after the 2nd or even 1st round of optimizations). 
+
+From now on, do not do more than 2 optimization runs, and if it still works, just let it be. 
+
+
+
+A composable in Vue is a function that encapsulates and reuses stateful logic. It uses Vue's Composition API (like ref, reactive, computed) to manage reactive state and return it for use in components
+
+Key differences from Pinia stores:
+
+-Scope: Composables create isolated instances per component that uses them. Pinia stores are global singletons shared across the entire app.
+-State sharing: Each component gets its own composable state. Pinia stores share state between all components.
+-Persistence: Composable state is tied to component lifecycle. Store state persists until explicitly cleared.
+
+
+
+In JavaScript, the fetch() function by default makes a GET request - that's actually the default HTTP method when you don't specify one explicitly. The fetch API assumes GET requests when you don't provide a method, since GET is the most common HTTP operation (it's what happens when you type a URL in your browser). We only need to explicitly specify the method when we're doing something else (e.g POST or PUT requests)
+
+
+When you create a class in JavaScript, you often don't use that directly, but rather make an instance of it that you store on a regular variable: 
+
+//Class creation
+class TranscriptionImprover {
+  constructor() { 
+
+//Class instance
+const transcriptionImprover = new TranscriptionImprover()
+
+This design pattern is called dependency injection - instead of creating a new TranscriptionImprover every time you need to improve text, you create it once and reuse it. This is more efficient and ensures consistent behavior across all transcription sessions. The instance stays alive for the entire lifetime of your application, ready to be called whenever transcribeAudio() needs to improve some text.
+
+
+
+
+Whether you're making a GET request to fetch data, a POST request to create something, a PUT request to update something, or a DELETE request to remove something, you always get a response back that tells you what happened and potentially gives you new data.
+Even when you make a POST request to create something, the server often sends back the created item with additional fields (like an auto-generated ID or timestamp) that weren't in your original request.
+
+
+
+
+You can use the following command to kickstart a conversation with Claude to work on the project you're currently on:
+
+claude --resume
+
+This will basically save you the step of telling Claude to analyze your codebase to get on context, since it will tell Claude Code to do it automatically and it will also check your commit history to see what you've been working on recently. It will essentially get Claude ready to work on whatever feature you want straight away
+
+
+
+
+ In JavaScript classes, if a constructor doesn't do anything, you can actually omit it entirely. The constructor is only needed when you're initializing instance properties (like prompt templates in other services)
+
+
+
+Start using the Windows Key + V shortcut with pinned clipping to save prompts you often reuse, so you don't have to write them over and over again. 
+
+
+The = null is JavaScript's way of providing a default parameter value, which serves a similar purpose to TypeScript's optional parameters. See the below example from your speech-to-text app:
+
+async transcribe(audioFile, apiKey, contextPrompt = null) {
+  // If contextPrompt is not passed, it defaults to null
+}
+
+This means the function can be called in multiple ways:
+
+// With context
+transcribe(audioFile, apiKey, 'coding')     // contextPrompt = 'coding'
+
+// Without context  
+transcribe(audioFile, apiKey)               // contextPrompt = null (default)
+
+// Explicitly null
+transcribe(audioFile, apiKey, null)         // contextPrompt = null
+
+the = null is essentially JavaScript's way of saying "this parameter is optional, and if not provided, treat it as null" - which perfectly handles cases where a parameter is completely optional and might not be provided, so the function can run regardless of that.
+
+
+when using dynamic src attributes with v-bind (:src), the @ alias might not be resolved properly at runtime. The @ alias works fine for static imports in <script> sections or static src attributes in templates, but when the path is stored in a variable and          used dynamically, it might not resolve correctly. So for example, the below will not work:
+
+<img :src="skill.icon" />
+
+The solution is to import all the assets you're going to be serving in the component directly in the script section:
+
+import pythonIcon from '@/assets/icons/python.svg'
+import nodejsIcon from '@/assets/icons/nodejs.svg'
+import fastapiIcon from '@/assets/icons/FastAPI.svg'
+
+And then you link them to the attribute:
+
+const skillCategories = {
+  'Tech Stack': [
+    { name: 'Vue 3', icon: vueIcon },
+    { name: 'Python', icon: pythonIcon },
+    { name: 'Node.js', icon: nodejsIcon },
+    { name: 'FastAPI', icon: fastapiIcon },
+    { name: 'JavaScript', icon: javascriptIcon }
+  ],
+//Rest of the icons and attributes
+
+Then you can use this successfully:
+
+<img :src="skill.icon">
+
+
+
+To completely uninstall a package and revert all changes:
+
+  1. Discard all file changes in Source Control (which you've already done)
+  2. Remove the package by running:
+  npm uninstall @package-name
+
+Alternatively, since Git source control should already revert the package.json, you      can simply run:
+
+  npm install
+
+This will reinstall dependencies based on the reverted package.json, effectively        
+removing the @formkit/auto-animate package.
+
+
+
+FOUC (Flash of Unstyled Content) is this issue where a web page appears briefly with the browser's default styles prior to loading an external CSS stylesheet or an animation library (e.g GSAP), due to the web browser engine rendering the page before all information is retrieved.
+
+
+
+If your LLM ever suggests using 'setTimeout' to fix an issue, take it with skepticism, as that rarely works.
+
+
+
+
+After cloning a project removing the git history, you need to install the dependencies again by running 'npm install'. Here's the full process step by step (step 0 being situated already in the folder or desktop where you want to install your new project) 
+
+# 1. Clone the repository
+git clone https://github.com/username/repository-name.git your-new-project-name
+
+# 2. Navigate to the project
+cd your-new-project-name
+
+# 3. Remove git history
+Remove-Item -Recurse -Force .git
+
+# 4. Install dependencies (THIS IS THE MISSING STEP!)
+npm install
+
+# 5. Initialize fresh git
+git init
+git add .
+git commit -m "Initial commit"
+
+# 6. Now you can run the project
+npm run dev
+
+
+
+
+Whenever you have a problem aligning an icon with a title (within a flex container), like the two elements do not seem aligned at all or the icon is slightly higher, try setting the display: block property to the SVG/IMG element.  SVGs often eed additional styling to align properly with text in a flex container, so this ensures the SVG renders as a block element. 
+
+Any slight unalignments you might have after that, they can be fixed with some small negative margin values. 
+
+
+
+When you install packages via npm on a feature branch, the packages themselves are not exclusive to that branch, meaning that while the package.json changes are branch-specific, the actual package files are added to the shared node_modules/ folder. 
+
+After switching branches, run npm install to ensure your node_modules/ matches that branch's package.json. 
+
+Running npm install on your main branch will:
+
+-Install all packages listed in package.json that aren't already in node_modules/
+-Remove any extra packages that exist in node_modules/ but aren't declared in package.json
+-Restore the exact state defined by your package-lock.json
+
+
+
+package.json is where you check your direct dependencies - the packages your app is actually using.
+
+package-lock.json contains the complete dependency tree, including all the sub-dependencies (dependencies of your dependencies). For example, when you install vue, it might depend on 20 other packages - those all get listed in the lock file.
+
+To check what's actually installed:
+
+1. package.json = "What I directly need"
+2. package-lock.json = "Everything that's actually installed (including sub-dependencies)"
+3. node_modules/ = "What's physically on disk right now"
+
+Keep in mind that Vite (and most modern bundlers) will treeshake unused code during production builds, but this works at the code level, not the package level. To see your actual bundle size: Run npm run build and check the output - Vite will show you exactly what's included and the final bundle sizes. Vite protects you from unused code, but keeping your package.json clean (like yours) is still the best practice.
+
+
+
+In Pinia, each store maintains its own isolated state, so having a status variable in multiple stores will not cause any conflicts. This is actually one of the key benefits of using a state management library like Pinia - each store operates as its own independent module.
+
+
+
+The ? (Optional Chaining Operator)
+
+The ? in persona?.icon is called the optional chaining operator. It's a safety
+feature that prevents errors when accessing properties of potentially undefined
+objects.
+
+What it does:
+  - If persona exists → access persona.icon
+  - If persona is null or undefined → return undefined instead of throwing an error        
+
+Why we need it:
+
+Since persona is computed from a store lookup, there's a brief moment during loading     
+where it might be undefined. Without ?, you'd get an error like "Cannot read
+property 'icon' of undefined".
+
+  Example:
+  // Without optional chaining (dangerous):
+  persona.icon // ❌ Error if persona is undefined
+
+  // With optional chaining (safe):
+  persona?.icon // ✅ Returns undefined safely if persona is undefined
+
+
+
+If you ever want to DISCARD all changes in Git (before they're commited obviously), run these two commands in that exact order:
+
+git reset --hard HEAD
+git clean -fd
+
+git reset will remove all staged changes, discard all modifications to tracked files and reset your working directory to exactly match the last commit, while git clean removes any untracked file (new files you created during the working session you want to erase that have not been added to Git)
+
+
+
+Use the below command to successfully add Context7 MCP to Claude Code for any project:
+
+claude mcp add context7 -- npx @upstash/context7-mcp@latest
+
+
+
+Use the below command to allow Claude Code to do everything he wants without asking permission
+
+claude --dangerously-skip-permissions
+
+Or add this to your settings.local.json file:
+
+{
+  "permissions": {
+    "allow": [],
+    "deny": [],
+    "ask": [],
+    "defaultMode": "bypassPermissions"
+  }
+}
+
+
+
+Press Alt + M to switch to Plan Mode on Claude Code
+
+
+
+If you type document.designMode = "on"; into the Chrome devtools, it lets you modify the text on the webpage directly.
+
+
+
+
+The transform property creates a new stacking context when an animation is activated, so the element being animated it’s promoted to its own layer and paints above siblings that don’t set an explicit stacking order. This might affect other pseudo-elements in the main element that have no z-index, as the scaled content covers it during the animation, hiding the pseudo-element. 
+
+This happens very often when scaling graphic content and having a pseudo-element in the parent container that acts as a border.
+
+
+If in the future, you want to add Serena again to your Claude Code configuration, simply add this to your .claude.json file at the /migue directory:
+
+ "mcpServers": {
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena-mcp-server"
+      ]
+    }
+  },
+
+
+
+The 'ni' command is used to create new files inside an existing folder. 
+
+ni src/__init__.py
+
+Keep in mind that it requires the 'src' folder to actually exist. 
+
+
+
+
+You can configure patterns to hide files and folders from the explorer and searches.
+
+1. Open Visual Studio Code User Settings (Main menu: File → Preferences → Settings). This will open the setting screen.
+
+2. Search for files:exclude in the search at the top.
+
+3.Add the type of file you wish to hide. 
+
+
+
+
+BaseIOSchema in Atomic Agents is just a thin wrapper around BaseModel, probably looking like this:
+
+class BaseIOSchema(BaseModel):
+    pass
+
+
+
+When you want you just want an explanation on a code file or a portion of your codebase, without having a lot of code examples or additional actions from Claude, use the 'Explanatory' style. This will make the LLMs answer mostly text-based.  
+
+
+
+It takes way longer than you think to reach context limits in Claude conversations. Whenever you think you're approaching it, simply ask how many tokens have you consumed so far and how much you got left, and Claude will tell you. 
+
+
+
+In Vue, scoped styles in parent components (meaning components that hold other components) are NOT be accessible to child components due to Vue's scoping mechanism.
+
+
+
+<RouterLink> renders as an <a> tag by default, which maintains semantic HTML and ensures accessibility for screen readers and keyboard navigation. Do not wrapping <button> or <a> inside <RouterLink> tags as this is incorrect. 
+
+
+
+Embedding is a mathematical concept that refers to placing one object into a different space.
+
+
+
+In OpenAI, the frequency penalty is a parameter that reduces the likelihood of the model repeating the same words or tokens within a single generated output by decreasing a word's score each time it's used. It helps promote vocabulary diversity and makes the text less repetitive. The parameter can be adjusted in the API, typically between -2.0 and 2.0, where a value of 0 means no penalty is applied.
+
+
+
+When you define a variable and assign its value to an existing function, the return value of that function gets stored in the variable.
+
+See the below variable, and assume there's a previously defined function called 'splitDocument' that returns something:
+
+  const chunkData = await splitDocument("movies.txt"); 
+
+Here, in our example:
+
+1. splitDocument("movies.txt") returns the output variable (which contains the split document chunks)
+2. That returned value is what gets stored in chunkData
+3. You can then get chunkData somewhere else (e.g inside yet another function or a class)
+
+
+
+In TypeScript, interface is not an object or variable—it's a special keyword used to define the shape (structure) of an object type. An interface lets you describe what properties and methods an object must have.
+
+
+interface Person {
+  name: string;
+  age: number;
+}
+
+const user: Person = {
+  name: "Alice",
+  age: 30
+};
+
+
+'interface' is for describing object types, not for creating objects or variables. When you see interface in TypeScript, think of it as a blueprint or contract for the structure of objects, not as an object or variable itself.
+
+interface Car {
+  make: string;
+  model: string;
+}
+let myCar: Car = { make: "Toyota", model: "Corolla" };
+
+
+There's also something pretty similar called aliases, which are used for complex types in general.  
+You can make them using the 'type' keyword:
+
+type Point = { x: number; y: number };
+let position: Point = { x: 1, y: 2 };
+
+
+
+
+TypeScript also has a special type, any, that you can use whenever you don’t want a particular value to cause typechecking errors. When a value is of type any, you can access any properties of it (which will in turn be of type any), call it like a function, assign it to (or from) a value of any type, or pretty much anything else that’s syntactically legal. 
+
+Using `any` disables all further type checking, and it is assumed you know the environment better than TypeScript.
+
+
+
+For variables holding simple values, let TypeScript infer the types for you instead of using type annotations:
+
+let x: number = 5;   // Correct but unnecessary 
+let y = 10;	     // Inferred as number, still correct and shorter
+
+
+
+In TypeScript it comes to Object Types, you can use the ? symbol to make a property optional:
+
+let pet: { name: string; age?: number } = {
+  name: "Buddy"
+};
+
+
+
+In TypeScript, you can allow a value to be one of several types using Union Types:
+
+let id: number | string;
+id = 42;
+id = "A001"; // both fine
+
+And with Literal Types, you can restrict the value of a variable to really specific values:
+
+let direction: "left" | "right" | "center";
+direction = "left"; // Only allowed values
+
+
+
+By default in TypeScript null and undefined can be assigned to most types. They signal can that a variable intentionally has "no value." For example, an unfinished computation or an unset configuration options:
+
+let result: number | null = null; // result is absent now, will be set later
+
+
+Functions and objects can have optional parameters or properties, which are undefined until set
+
+function greet(name?: string) {
+  // name is undefined if not provided
+  return "Hello, " + (name ?? "Guest");
+}
+
+Additionally, many APIs return null/undefined to indicate not found or missing. Using these values matches common patterns:
+
+function findUser(id: string): User | undefined {
+  // return undefined if user not found
+}
+
+So, in summary, assigning null or undefined lets you clearly express "no value" or "not set yet," making your code safer, more readable, and easier to maintain
+
+
+
+
+NPM is a package management that is used to install, uninstall, and update Javascript packages on your workstation, whereas NPX is a package executer that is used to directly execute Javascript packages without installing them
+
+
+
+When verbatimModuleSyntax is enabled, TypeScript requires you to be explicit about whether you're importing:
+
+-Values (functions, classes, objects) - used at runtime
+-Types (interfaces, type aliases) - only used for type checking, stripped away at build time
+
+
+
+In Tailwind, if you want the text inside a card-like container to break lines at a certain point (before the end of the card/container), use the property w-value/value
+
+This is a way to tell Tailwind "I want this element to have a width of X% of the parent element". 
+
+And you'll likely want to use this for the longer breakpoints where text looks odd when it goes on for you long, so you'll use a property like this:
+
+lg:w-3/4
+
+
+
+Remember about z-index management when creating components. 
+Here's how z-index should typically be organized:
+
+z-0    = Default layer (overlays, backgrounds)
+z-10   = Content layer (hero content)
+z-40   = Dropdowns, popovers
+z-50   = Navigation bars, headers
+z-[100] = Modals, dialogs
+
+So any dynamic content that 'opens up' after a user action (e.g a dropdown menu, a modal, mobile navigation that takes up most of the screen), should have the highest possible z-index, since this content has to be seen above everything else.
+
+
+
+If you want to use the container class for consistency, but fix the problem where layouts in md viewports seem constrained and squeezed, use the following pattern:
+
+
+<div class="container md:max-w-full lg:px-24">
+
+The max-w-full utility makes the element take up as much space as he needs (which is particularly useful for two column layouts, where in md viewports the content would be too loose to place one column, but too large to fit in with the container max-width constraints)
+
+Note: The lg:px-24 viewport utility is optional, it depends on how wide the content of the section is or your space needs.
+
+
+
+The :first-child selector is very strict - it only matches if the element is the literal first child of its parent container. When you want to universally target elements that are used a lot (e.g sections), use :first-of-type better. 
+
+:first-of-type matches the first element of that specific type among siblings 
+
+
+
+Astro has built-in TypeScript support, that treats all components as TypeScript by default, even when you write plain JavaScript. Is not like there's something wrong with your code when you write plain JavaScript and get flagged a Type error. The errors you mostly see are from your editor's TypeScript language server, not from Astro's build process. 
+
+To completely opt out of TypeScript for your project, open VS Code Command Palette by pressing Ctrl+Shift+P, select Preferences: Open Workspace Settings (JSON) and ad the following code to the file.
+
+
+{
+  "typescript.validate.enable": false
+}
+
+Keep in mind that you can freely mix TypeScript and JavaScript in Astro projects—it's completely fine and actually a common practice. Astro processes everything through its TypeScript compiler regardless of whether you write TypeScript or JavaScript. This means that .js and .ts files can coexist in the same project, and that Astro components can contain plain JavaScript or TypeScript synthax.
+
+No mandatory consistency is required either: Some components can use TypeScript features (like type annotations) while others use plain JavaScript
+
+
+
+The <hr> tag, called Thematic Break, defines a thematic break in an HTML page (e.g. a shift of topic).
+
+The <hr> element is most often displayed as a horizontal rule that is used to separate content (or define a change) in an HTML page, or also used as a divider. It can be styled if needed.
+
+
+
+---ABOUT COMPONENT DATA MANAGEMENT IN ASTRO.JS----
+
+In Astro.js, you use expression syntax (the single curly braces {} ) and template literals to inject data from the frontmatter directly in your HTML, just like in JSX. 
+
+For example:
+
+---
+const eyebrow = "WORK WITH THE BEST";
+---
+<p>{eyebrow}</p>
+
+This works and is a legitimate pattern, especially for static landing pages and one-off components you're not intending to reuse.
+
+But there're different patterns/solutions for different scenarios as well:
+
+1. For components that you'll likely reuse with different content, props are the recommended best practice. You'd then just pass the data via props from the parent component to the child, or in the page where your component is being used.
+
+2. When we're handling data from a list, we use JavaScript's native .map() method within our markup. Let's say we need to generate a number of feature cards within a component, one feature card per each item within a 'const features' array, along with additional information from the feature, like title, image and a URL. 
+
+We would do something like this in our markup:
+
+{features.map((feature) => (
+  <div>
+    <h3>{feature.heading}</h3>
+    <p>{feature.description}</p>
+  </div>
+))}
+
+You can even perform filtering operations before the mapping, to filter out data in real time before rendering elements. 
+
+This is the equivalent of Vue 3 'v-for' directive. 
+
+
+3. When we want to display (or not display) something based on a given condition, we use conditionals with ternary:
+
+{isVisible ? <div>Shown</div> : <div>Hidden</div>}
+
+--------------
+
+
+In Tailwind v4, animations are defined using CSS variables with the pattern --animate-*
+You can also link them to user actions, such as hover:
+
+<button class="px-8 transition-transform hover:animate-(--animate-fade-in)">
+
+You can also control parameters of the animation directly from Tailwind, such as duration and delay:
+
+<div class="animate-(--animate-fade-in) delay-300 duration-1000">
+  Delayed fade in
+</div>
+
+
+
+Since you're borrowing themes from Radix UI, and you're not set up in the conventional way, some of the  Tailwind animations defined in the stylesheet just won't work (since they're expecting Radix values). However, the default Tailwind animations will work fine. 
+
+From Shadcn/ui stylesheets, the only animation that will work by default is this one:
+
+
+animate-(--animate-fade-in)              
+
+The other animations that work without setup are the below (because they're native to Tailwind, you do not even need to declare them):
+     
+animate-spin                              
+animate-pulse                           
+animate-ping                              
+animate-bounce                      
+
+This means that, when it comes to animations, you're on your own as well.
+
+
+
+Working with fonts in Astro + Tailwind projects is fairly straight-forward. Just import the fonts you wish to use at the top of your global.css styles:
+
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+
+Then, inject the font you want to use as the default into your body via @layer base:
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-geist antialiased;
+    scrollbar-gutter: stable;
+
+  }
+}
+
+This will make Geist the first-choice font throughout your project. 
+
+Any other font you need to use, you'll need to make sure it is imported in global.css first, and then you just have to use any of your predefined variables as a utility class (or create a new one if you do not have it for that specific font)
+
+For example, in an <h1> element:
+
+<h1 class="font-bebasNeue text-3xl">
+
+
+
+Astro renders everything as static HTML by default. For React components with animations to work, you need to add a **client directive** to tell Astro to hydrate the component on the client side.
+
+Common directives:
+- `client:load` - Hydrates immediately on page load
+- `client:visible` - Hydrates when component enters viewport
+- `client:idle` - Hydrates after page is idle
+
+The client:* directive is a rendering instruction that tells Astro when and how to hydrate the component on the client-side. 
+
+
+
+In development, Vite (Astro's and Vue's build tool) uses unbundled ESM (ES Modules). This means:
+✅ Each module is served individually (that's why you see 156+ requests)
+✅ Source maps are included for debugging
+✅ No minification or tree-shaking
+✅ Hot Module Replacement (HMR) code is included
+✅ This is intentional for fast dev experience
+
+This is why you see sometimes enormous load sizes when testing on your local environment
+
+
+
+Unnused dependencies do NOT affect your build. Astro (and modern bundlers in general) only bundle code that's actually imported and used in your components.
+
+Astro scans your components and only includes code that you explicitly import.
+
+Modern bundlers (Vite, which Astro uses) eliminate dead code:
+
+-Only used exports from libraries are included
+-Unused functions are stripped out
+-Empty imports are removed entirely
+
+Even if you install a package and is in your node_modules folde (e.g React), these packages won't be added to the build as long as they're not imported in your components (even if they're added to the package.json dependencies, because of tree-shaking)
+
+
+
+Be aware of the distinction between IMPORTING and USING/RENDERING. Importing is when you import the file/module/package at the top of your code file. Using/rendering means when you use a component or asset that you imported in the template area of your code file (e.g in Vue <template> or inside the Component Template in Astro.js)
+
+
+
+Be careful when selecting files in VS Code to delete. You sometimes have a file already selected (that you do no intend to delete, but it's include in the selection) and, without being aware, delete it as well. 
