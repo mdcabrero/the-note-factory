@@ -18,7 +18,7 @@ import Sidebar from '@/components/Sidebar.vue'
   width: 100%;
   min-height: 100vh;
   display: flex;
-  background-color: var(--bg-primary);
+  background-color: var(--color-background);
 }
 
 .main-content {
@@ -31,7 +31,7 @@ import Sidebar from '@/components/Sidebar.vue'
   width: 100%;
   min-height: 100vh;
   margin-left: 4em; /* Sidebar width */
-  padding: var(--space-2xl);
+  padding: var(--space-12);
   overflow-y: auto;
 }
 
@@ -44,10 +44,10 @@ import Sidebar from '@/components/Sidebar.vue'
   right: 0;
   bottom: 0;
   background-image:
-    linear-gradient(var(--border-subtle) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+    linear-gradient(var(--color-gray-200) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-gray-200) 1px, transparent 1px);
   background-size: 60px 60px;
-  opacity: 0.3;
+  opacity: var(--opacity-30);
   pointer-events: none;
   z-index: 0;
 }

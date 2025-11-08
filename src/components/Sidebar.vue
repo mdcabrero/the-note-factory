@@ -48,28 +48,28 @@ import { RouterLink } from 'vue-router'
   top: 0;
   height: 100%;
   width: 4em;
-  background: var(--bg-secondary);
-  border-right: 1px solid var(--border-primary);
+  background: var(--color-gray-100);
+  border-right: 1px solid var(--border-color);
   z-index: var(--z-sticky);
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-block: var(--space-lg);
-  gap: var(--space-sm);
+  padding-block: var(--space-6);
+  gap: var(--space-2);
 }
 
 .logo {
   width: 2.5em;
   height: auto;
-  color: var(--text-accent);
+  color: var(--color-accent);
   transition: transform var(--transition-base), color var(--transition-fast);
   cursor: pointer;
 }
 
 .logo:hover {
   transform: scale(1.05);
-  color: var(--green-400);
+  color: var(--color-accent-hover);
 }
 
 .logo svg {
@@ -81,10 +81,10 @@ import { RouterLink } from 'vue-router'
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: var(--space-xl);
-  gap: var(--space-md);
+  margin-top: var(--space-8);
+  gap: var(--space-4);
   width: 100%;
-  padding-inline: var(--space-sm);
+  padding-inline: var(--space-2);
 }
 
 .nav-link {
@@ -94,9 +94,9 @@ import { RouterLink } from 'vue-router'
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-md);
-  padding: var(--space-sm);
+  padding: var(--space-2);
   transition: all var(--transition-base);
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
 }
 
 /* Tooltip */
@@ -106,14 +106,14 @@ import { RouterLink } from 'vue-router'
   left: 100%;
   top: 50%;
   transform: translateY(-50%);
-  margin-left: var(--space-md);
-  padding: var(--space-sm) var(--space-md);
-  background: var(--bg-tertiary);
-  color: var(--text-primary);
+  margin-left: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-gray-200);
+  color: var(--color-text);
   font-size: var(--text-sm);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-medium);
   white-space: nowrap;
-  border: 1px solid var(--border-primary);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
 
@@ -125,8 +125,8 @@ import { RouterLink } from 'vue-router'
 }
 
 .nav-link:hover {
-  background: var(--bg-hover);
-  color: var(--text-accent);
+  background: var(--color-gray-300);
+  color: var(--color-accent);
 }
 
 .nav-link:hover::after {
@@ -136,25 +136,25 @@ import { RouterLink } from 'vue-router'
 
 /* Active state */
 .nav-link.router-link-exact-active {
-  background: linear-gradient(135deg, var(--green-700), var(--green-600));
-  color: var(--text-primary);
-  box-shadow: var(--glow-green-sm);
+  background: var(--color-accent);
+  color: #000000;
+  box-shadow: var(--shadow-accent);
 }
 
 .nav-link.router-link-exact-active:hover {
-  background: linear-gradient(135deg, var(--green-600), var(--green-500));
-  box-shadow: var(--glow-green-md);
+  background: var(--color-accent-hover);
+  box-shadow: var(--shadow-accent);
 }
 
 .icon {
   width: 1.5em;
   height: auto;
-  opacity: 0.9;
+  opacity: var(--opacity-90);
   transition: opacity var(--transition-fast);
 }
 
 .nav-link:hover .icon,
 .nav-link.router-link-exact-active .icon {
-  opacity: 1;
+  opacity: var(--opacity-100);
 }
 </style>
