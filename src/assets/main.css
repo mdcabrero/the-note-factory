@@ -1,12 +1,25 @@
+/* ==========================================================================
+   MAIN STYLES
+   Modal-inspired dark theme application
+   ========================================================================== */
+
 @import './base.css';
-@import './job-analysis.css';
 
 body {
   position: relative;
+  min-height: 100vh;
   text-rendering: optimizeSpeed;
-  font-family: 'NeueMontreal', sans-serif;
-  line-height: 1.5;
-  background-color: var(--cream-bg);
-  background-size: contain;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
 }
