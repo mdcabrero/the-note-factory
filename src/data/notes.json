@@ -1,54 +1,114 @@
 {
-  "JavaScript": [
-    {
-      "id": "js-001",
-      "title": "Array Methods Deep Dive",
-      "content": "Understanding the most powerful array methods in JavaScript:\n\n**Map** - Transform each element\n```js\nconst numbers = [1, 2, 3, 4, 5];\nconst doubled = numbers.map(x => x * 2);\n// Result: [2, 4, 6, 8, 10]\n```\n\n**Filter** - Select elements that match a condition\n```js\nconst ages = [12, 18, 25, 30, 15];\nconst adults = ages.filter(age => age >= 18);\n// Result: [18, 25, 30]\n```\n\n**Reduce** - Accumulate values\n```js\nconst numbers = [1, 2, 3, 4, 5];\nconst sum = numbers.reduce((acc, curr) => acc + curr, 0);\n// Result: 15\n```"
-    },
-    {
-      "id": "js-002",
-      "title": "Async/Await Best Practices",
-      "content": "Modern asynchronous JavaScript patterns:\n\n**Basic async/await**\n```js\nasync function fetchUser(id) {\n  try {\n    const response = await fetch(`/api/users/${id}`);\n    const data = await response.json();\n    return data;\n  } catch (error) {\n    console.error('Failed to fetch user:', error);\n    throw error;\n  }\n}\n```\n\n**Parallel requests**\n```js\nconst [users, posts, comments] = await Promise.all([\n  fetch('/api/users').then(r => r.json()),\n  fetch('/api/posts').then(r => r.json()),\n  fetch('/api/comments').then(r => r.json())\n]);\n```\n\nRemember: Always use try/catch for error handling!"
-    }
-  ],
-  "Vue3": [
-    {
-      "id": "vue-001",
-      "title": "Composition API Essentials",
-      "content": "Key concepts for Vue 3 Composition API:\n\n**Setup function with ref and reactive**\n```js\nimport { ref, reactive, computed } from 'vue';\n\nexport default {\n  setup() {\n    const count = ref(0);\n    const user = reactive({\n      name: 'John',\n      age: 30\n    });\n    \n    const doubleCount = computed(() => count.value * 2);\n    \n    function increment() {\n      count.value++;\n    }\n    \n    return { count, user, doubleCount, increment };\n  }\n};\n```\n\n**Using script setup (recommended)**\n```vue\n<script setup>\nimport { ref, computed } from 'vue';\n\nconst count = ref(0);\nconst doubleCount = computed(() => count.value * 2);\n\nfunction increment() {\n  count.value++;\n}\n</script>\n```"
-    },
-    {
-      "id": "vue-002",
-      "title": "Watchers and Effects",
-      "content": "Different ways to react to data changes in Vue 3:\n\n**watch() - Watch specific reactive sources**\n```js\nimport { ref, watch } from 'vue';\n\nconst question = ref('');\nconst answer = ref('');\n\nwatch(question, async (newQuestion, oldQuestion) => {\n  if (newQuestion.includes('?')) {\n    answer.value = 'Thinking...';\n    const result = await fetchAnswer(newQuestion);\n    answer.value = result;\n  }\n});\n```\n\n**watchEffect() - Auto-track dependencies**\n```js\nimport { ref, watchEffect } from 'vue';\n\nconst todoId = ref(1);\nconst data = ref(null);\n\nwatchEffect(async () => {\n  data.value = await fetch(`/api/todos/${todoId.value}`);\n});\n```"
-    }
-  ],
   "CSS": [
     {
       "id": "css-001",
-      "title": "Modern CSS Grid Layouts",
-      "content": "Creating responsive layouts with CSS Grid:\n\n**Basic Grid Template**\n```css\n.container {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: 1.5rem;\n  padding: 2rem;\n}\n```\n\n**Named Grid Areas**\n```css\n.layout {\n  display: grid;\n  grid-template-areas:\n    'header header header'\n    'sidebar main main'\n    'footer footer footer';\n  grid-template-columns: 200px 1fr 1fr;\n  grid-template-rows: auto 1fr auto;\n  min-height: 100vh;\n}\n\n.header { grid-area: header; }\n.sidebar { grid-area: sidebar; }\n.main { grid-area: main; }\n.footer { grid-area: footer; }\n```"
-    }
-  ],
-  "Astro": [
+      "title": "Relative Paths in HTML and CSS",
+      "content": "When you use a path like `assets/logo.svg` in your HTML, the browser starts looking from the current document's location.\n\n**Path Examples:**\n- `./` or no prefix = current directory\n- `../` = parent directory (go up one level)\n- `/` = root directory\n\n**From styles.scss to reference assets:**\n```scss\n// Go up one level to project root, then into assets\nbackground-image: url('../assets/hero-image.png');\n```\n\n**Example Structure:**\n```\nproject-root/\n  ├── index.html\n  ├── assets/\n  │     └── hero-image.png\n  └── scss/\n        └── styles.scss\n```\n\nRelative paths make your links work correctly regardless of where your site is hosted."
+    },
     {
-      "id": "astro-001",
-      "title": "Astro Component Basics",
-      "content": "Building components in Astro.js:\n\n**Basic Astro Component**\n```astro\n---\n// Component Script (runs at build time)\nconst title = 'Welcome to Astro';\nconst items = ['Fast', 'Flexible', 'Modern'];\n---\n\n<div class=\"card\">\n  <h2>{title}</h2>\n  <ul>\n    {items.map((item) => <li>{item}</li>)}\n  </ul>\n</div>\n\n<style>\n  .card {\n    padding: 1rem;\n    border: 1px solid #ccc;\n    border-radius: 8px;\n  }\n</style>\n```\n\n**Using Framework Components**\n```astro\n---\nimport ReactCounter from '../components/Counter.jsx';\nimport VueCard from '../components/Card.vue';\n---\n\n<ReactCounter client:load />\n<VueCard client:visible />\n```"
-    }
-  ],
-  "Project Management": [
+      "id": "css-002",
+      "title": "SCSS Attribute Selectors",
+      "content": "In SCSS (and CSS), HTML attributes are targeted with square brackets `[]`, not parentheses.\n\n**Targeting disabled attribute:**\n```scss\nbutton {\n  &[disabled] {\n    opacity: 0.5;\n    cursor: not-allowed;\n  }\n}\n```\n\n**Targeting data attributes:**\n```scss\n.card {\n  &[data-variant=\"primary\"] {\n    background: blue;\n  }\n}\n```\n\n**Breakdown:**\n- `&` acts as the parent selector reference\n- `[disabled]` targets elements with the disabled attribute"
+    },
     {
-      "id": "pm-001",
-      "title": "Agile Sprint Planning Template",
-      "content": "Effective sprint planning framework:\n\n**Sprint Goal**\n- Define clear, measurable objective\n- Align with product roadmap\n- Keep it focused (one main goal)\n\n**Story Points Estimation**\n```\n1 point  = Few hours (simple bug fix)\n2 points = Half day (small feature)\n3 points = 1 day (medium feature)\n5 points = 2-3 days (complex feature)\n8 points = Week (epic, should be broken down)\n```\n\n**Daily Standup Format**\n1. What did I complete yesterday?\n2. What will I work on today?\n3. Any blockers or dependencies?\n\n**Definition of Done**\n- Code complete\n- Tests written and passing\n- Code reviewed\n- Documentation updated\n- Deployed to staging"
-    }
-  ],
-  "AI": [
+      "id": "css-003",
+      "title": "Markdown Heading Hierarchy",
+      "content": "Hashtags (#) in Markdown files represent headings in a hierarchy system:\n\n**Heading Levels:**\n- `#` = H1 (main title, biggest)\n- `##` = H2 (second biggest)\n- `###` = H3\n- `####` = H4\n- `#####` = H5\n- `######` = H6 (smallest heading)\n\n**Example Structure:**\n```md\n# Project Title\n## Getting Started\n### Installation\n#### Prerequisites\n```\n\nThe hierarchy creates a logical document structure/outline. Each additional `#` represents a deeper level in the document hierarchy."
+    },
     {
-      "id": "ai-001",
-      "title": "Prompt Engineering Best Practices",
-      "content": "Tips for writing effective AI prompts:\n\n**Structure Your Prompts**\n1. Context: Provide background information\n2. Task: Clearly state what you want\n3. Format: Specify output format\n4. Constraints: Add any limitations or requirements\n\n**Example - Good Prompt**\n```\nContext: I'm building a Vue 3 e-commerce app.\nTask: Generate a product card component.\nFormat: Use Composition API with script setup.\nConstraints: \n- Include image, title, price, and add-to-cart button\n- Use Tailwind CSS for styling\n- Emit custom event on button click\n```\n\n**Tips**\n- Be specific and detailed\n- Provide examples when possible\n- Iterate and refine based on results\n- Use system messages to set behavior\n- Break complex tasks into steps"
+      "id": "css-004",
+      "title": "CSS Padding Shorthand - Block and Inline",
+      "content": "You can use multiple-value shortcuts in the `padding-block` and `padding-inline` properties:\n\n**Block Padding (vertical):**\n```scss\npadding-block: $space-2x $space-1x;\n// top-bottom\n```\n\n**Inline Padding (horizontal):**\n```scss\npadding-inline: $space-3x $space-2x;\n// left-right\n```\n\nThe values assigned will be:\n- **Block**: top-bottom\n- **Inline**: left-right"
+    },
+    {
+      "id": "css-005",
+      "title": "Inline Styles Scope",
+      "content": "Inline styles only affect the specific element where they're applied, not other instances.\n\n**Example:**\n```html\n<!-- Page 1 -->\n<footer>...</footer>\n\n<!-- Page 2 -->\n<footer style=\"background-color: blue;\">...</footer>\n```\n\nThe blue background only appears on Page 2's footer.\n\n**Advantages:**\n- High specificity for one-off overrides\n- Only affects the exact element\n\n**Disadvantages:**\n- Can't be reused easily\n- Increases code duplication\n- Generally discouraged for common styling patterns\n\nInline styles are fine for truly one-off changes that won't be repeated."
+    },
+    {
+      "id": "css-006",
+      "title": "Browser Image Caching",
+      "content": "When an image is loaded on initial page visit, the browser caches it. Subsequent pages using the same image load it from cache.\n\n**Benefits:**\n- Image loads instantly on subsequent views\n- Reduces bandwidth for server and user\n- Improves page load performance\n\n**How it works:**\nIf multiple pages use `assets/logo.png`, the browser downloads it once and reuses the cached version on other pages with identical URL paths."
+    },
+    {
+      "id": "css-007",
+      "title": "CSS :has() Selector",
+      "content": "The `:has()` pseudo-class allows styling based on whether an element contains specific children or states.\n\n**1. Parent Selection:**\n```css\n/* Style divs that contain images */\ndiv:has(img) {\n  padding: 1rem;\n}\n```\n\n**2. Conditional Styling:**\n```css\n/* Style form fields with error messages */\n.form-field:has(.error-message) {\n  border-color: red;\n}\n```\n\n**3. State-Based Styling:**\n```css\n/* Style card when button is hovered */\n.card:has(button:hover) {\n  box-shadow: 0 0 10px rgba(0,0,0,0.2);\n}\n```\n\n**Real-world Example:**\n```css\n/* Adjust position when navbar is visible */\nbody:has(.is-scroll-up) .faqs-categories {\n  top: 6.5rem;\n}\n```\n\n`:has()` is a forward-looking selector that significantly expands CSS capabilities, reducing the need for JavaScript."
+    },
+    {
+      "id": "css-008",
+      "title": "CSS Grid with auto-fit and minmax()",
+      "content": "Create responsive layouts without media queries using `repeat()`, `auto-fit`, and `minmax()`.\n\n**Example:**\n```css\n.grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));\n  gap: 1rem;\n}\n```\n\n**How it works:**\n- `repeat()` - Shorthand instead of writing `1fr 1fr 1fr...`\n- `auto-fit` - Creates as many columns as will fit\n- `minmax(500px, 1fr)` - Each column is min 500px, max 1fr\n\n**Example Behavior:**\n- Container 1200px wide → 2 columns at 600px each\n- Container 1800px wide → 3 columns at 600px each\n- Container <500px wide → 1 column (minimum treated as suggestion)\n\n`auto-fit` automatically adjusts column count based on available space."
+    },
+    {
+      "id": "css-009",
+      "title": "CSS clamp() Function",
+      "content": "The `clamp()` function sets a value within a min-max range.\n\n**Syntax:**\n```css\nclamp(minimum, preferred, maximum)\n```\n\n**How it works:**\n- Browser tries to use the \"preferred\" value\n- If preferred is too small, use minimum\n- If preferred is too large, use maximum\n\n**Example - Fluid Typography:**\n```css\nh1 {\n  font-size: clamp(1.5rem, 5vw, 3rem);\n}\n```\n\n**Benefits:**\n- Fluid typography in one line\n- No media queries needed\n- Responsive scaling based on viewport"
+    },
+    {
+      "id": "css-010",
+      "title": "Handling Large Words on Small Viewports",
+      "content": "Strategies for managing text overflow on smaller screens:\n\n**1. Word Break Tag:**\n```html\n<p>Pneu<wbr>mo<wbr>no<wbr>ultra<wbr>microscopic</p>\n```\nThe `<wbr>` tag creates optional break points within words.\n\n**2. CSS word-break:**\n```css\n.text {\n  word-break: break-all;\n}\n```\nMakes lines end exactly at the edge, even splitting words across lines.\n\nUse these techniques to prevent horizontal scrolling on mobile devices."
+    },
+    {
+      "id": "css-011",
+      "title": "Flex Property Shorthand",
+      "content": "`flex: 1` is shorthand for three properties:\n\n```css\n.item {\n  flex: 1;\n  /* Expands to: */\n  flex-grow: 1;    /* Can grow to fill space */\n  flex-shrink: 1;  /* Can shrink if needed */\n  flex-basis: 0;   /* Starting size is 0 */\n}\n```\n\n**Visual Example:**\n```\n┌─────────────────┐\n│ header          │ ← Takes content height\n├─────────────────┤\n│                 │\n│ main (flex: 1)  │ ← GROWS to fill space\n│                 │\n├─────────────────┤\n│ footer          │ ← Gets pushed to bottom\n└─────────────────┘\n```\n\n`flex: 1` tells an item to consume all leftover space, pushing other items to edges."
+    },
+    {
+      "id": "css-012",
+      "title": "Accessibility - Hiding Duplicate Content",
+      "content": "When duplicating content for visual effects, hide duplicates from assistive technologies.\n\n**Use aria-hidden:**\n```html\n<!-- Original content -->\n<div class=\"animation-element\">Content</div>\n\n<!-- Duplicate for animation -->\n<div class=\"animation-element\" aria-hidden=\"true\">Content</div>\n```\n\n**When to use:**\n- Decorative elements\n- Animation duplicates\n- Visual UI enhancements\n\nThis prevents screen readers from announcing duplicate content."
+    },
+    {
+      "id": "css-013",
+      "title": "Non-Breaking Space Entity",
+      "content": "The `&nbsp;` entity prevents line breaks at specific points.\n\n**Example:**\n```html\n<h1>\n  We turn raw data into measurable\n  <span class=\"highlight\">business&nbsp;growth</span>\n  and key insights\n</h1>\n```\n\n**Result:**\nEven when text wraps, \"business\" and \"growth\" stay together as one unit.\n\n**When to use:**\n- Keep related words together\n- Prevent awkward line breaks\n- Maintain semantic groupings\n\n**Warning:** Don't abuse it or lines might split at odd points."
+    },
+    {
+      "id": "css-014",
+      "title": "SCSS Parent Selector in Context",
+      "content": "The `&` symbol in SCSS can target the parent element when it's inside a specific context.\n\n**Example:**\n```scss\n.hero__title {\n  // Base styles for desktop\n  font-size: 3rem;\n  \n  .hero__content--mobile & {\n    // Styles when inside mobile context\n    font-size: 2rem;\n  }\n}\n```\n\n**Compiles to:**\n```css\n.hero__content--mobile .hero__title {\n  font-size: 2rem;\n}\n```\n\n**Meaning:** \"Apply these styles to `.hero__title` only when it's inside `.hero__content--mobile`\"\n\nThe `&` lets you write nested styles that target the current element in a specific context."
+    },
+    {
+      "id": "css-015",
+      "title": "Absolute Positioning - Fill Parent",
+      "content": "Setting all four positional parameters to 0 makes an absolutely positioned element fill its parent.\n\n**Example:**\n```css\n.hero__content--mobile {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  width: 100%;\n  height: 100%;\n}\n```\n\nThis makes the element take up the entire parent container (which must have `position: relative` or another positioning context)."
+    },
+    {
+      "id": "css-016",
+      "title": "Height-Sensitive Design Properties",
+      "content": "Use this combination for flexible, scalable elements:\n\n```css\n.element {\n  aspect-ratio: 16/9;\n  min-height: 300px;\n  height: auto;\n}\n```\n\n**How it works:**\n- `height: auto` calculates: `height = width ÷ aspect-ratio`\n- As viewport width changes, height recalculates automatically\n- `min-height` prevents element from becoming too small\n\nThis creates responsive elements that maintain aspect ratio while scaling with the viewport."
+    },
+    {
+      "id": "css-017",
+      "title": "CSS Specificity Rules",
+      "content": "CSS specificity hierarchy (highest to lowest priority):\n\n**1. Inline styles** (highest)\n```html\n<div style=\"height: 500px\"></div>\n```\n\n**2. IDs**\n```css\n#myElement { height: 400px; }\n```\n\n**3. Classes**\n```css\n.columns-wrapper { height: 300px; }\n```\n\n**4. Elements** (lowest)\n```css\ndiv { height: 200px; }\n```\n\n**Important Note:**\nJavaScript inline styles (`element.style.height = '500px'`) create inline styles that override CSS rules, even with `!important`."
+    },
+    {
+      "id": "css-018",
+      "title": "Dynamic Viewport Height Units",
+      "content": "The `dvh` (dynamic viewport height) unit adjusts to visible viewport changes.\n\n**How it works:**\n- `1dvh` = 1% of currently visible viewport height\n- Automatically adjusts when browser UI appears/disappears\n- Switches between large viewport (lvh) and small viewport (svh)\n\n**Comparison:**\n```css\n/* Traditional - can cause issues on mobile */\n.hero {\n  height: 100vh;\n}\n\n/* Dynamic - always matches visible height */\n.hero {\n  height: 100dvh;\n}\n```\n\n**Benefits:**\n- Handles mobile browser address bars\n- Accounts for on-screen keyboards\n- Provides smooth, dynamic measurement\n\nUnlike `vh`, `dvh` reflects actual visible height at any moment."
+    },
+    {
+      "id": "css-019",
+      "title": "max-width as Strategic Constraint",
+      "content": "`max-width` sets boundaries while letting content flow naturally.\n\n**Bad Approach - Fighting the browser:**\n```css\n.element {\n  width: 100%;\n  \n  @media (max-width: 768px) {\n    width: 90%;\n  }\n  \n  @media (max-width: 480px) {\n    width: 95%;\n  }\n}\n```\n\n**Good Approach - Set boundaries:**\n```css\n.element {\n  max-width: 600px;  /* Never wider than this */\n  width: 100%;       /* Use available space up to limit */\n}\n```\n\n**Benefits:**\n- Set upper boundaries where things break down\n- Let elements shrink naturally below that point\n- Saves writing multiple media queries\n- Children inherit the constraint"
+    },
+    {
+      "id": "css-020",
+      "title": "Fixed Content Overflow on Mobile Landscape",
+      "content": "Enable scrolling for fixed/floating elements that overflow on landscape mobile viewports.\n\n**Solution:**\n```css\n@media (max-height: 451px) and (orientation: landscape) {\n  .nav-menu {\n    height: 300px;\n    overflow-y: scroll;\n    -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */\n  }\n}\n```\n\n**Why this works:**\n- Defined height is essential (without it, no scrolling)\n- Enables scrolling when content exceeds viewport\n- Avoids complex media query workarounds\n- Provides smooth scrolling on iOS"
+    },
+    {
+      "id": "css-021",
+      "title": "Responsive Design - Container vs Component Level",
+      "content": "Two levels of styling in Vue/component-based apps:\n\n**Component Level:**\n```vue\n<!-- ProjectCard.vue -->\n<style scoped>\n.project-card {\n  padding: var(--spacing-lg);\n}\n\n@media (max-width: 768px) {\n  .project-card {\n    padding: var(--spacing-md);\n  }\n}\n</style>\n```\n\n**Container Level:**\n```vue\n<!-- ProjectsSection.vue -->\n<style scoped>\n.projects-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n}\n\n@media (max-width: 768px) {\n  .projects-grid {\n    grid-template-columns: 1fr;\n  }\n}\n</style>\n```\n\n**Best Strategy:**\n- Components handle internal responsive behavior\n- Containers handle overall page structure changes\n- Global styles maintain consistency via CSS variables"
+    },
+    {
+      "id": "css-022",
+      "title": "width: auto for Responsive Images",
+      "content": "`width: auto` is ideal for responsive images when controlling size with height.\n\n**Example:**\n```css\nimg {\n  height: 300px;\n  width: auto;\n  max-width: 100%;\n}\n```\n\n**Benefits:**\n- Maintains aspect ratio automatically\n- Prevents distortion\n- Respects `max-width` constraint\n- Better performance (no conflicting calculations)\n\nWidth adjusts automatically to match the height constraint while preserving the image's natural proportions."
     }
   ]
 }
