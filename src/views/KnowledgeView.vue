@@ -81,23 +81,23 @@ const knowledgeItems = ref([
 <style scoped>
 .knowledge-view {
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--container-xl);
 }
 
 .view-header {
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-12);
 }
 
 .view-title {
   font-size: var(--text-4xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-primary);
-  margin-bottom: var(--space-sm);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
 }
 
 .view-subtitle {
   font-size: var(--text-lg);
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
 }
 
 .content-section {
@@ -107,28 +107,28 @@ const knowledgeItems = ref([
 .action-bar {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
-  margin-bottom: var(--space-xl);
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
   flex-wrap: wrap;
 }
 
 .btn-primary {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-lg);
-  background: linear-gradient(135deg, var(--green-600), var(--green-500));
-  color: var(--text-primary);
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-6);
+  background: var(--color-accent);
+  color: #000000;
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-medium);
   transition: all var(--transition-base);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-base);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--green-500), var(--green-400));
-  box-shadow: var(--glow-green-md);
+  background: var(--color-accent-hover);
+  box-shadow: var(--shadow-accent);
   transform: translateY(-1px);
 }
 
@@ -137,20 +137,20 @@ const knowledgeItems = ref([
   max-width: 400px;
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-md);
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-primary);
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-gray-100);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   transition: border-color var(--transition-fast);
 }
 
 .search-box:focus-within {
-  border-color: var(--green-500);
+  border-color: var(--border-color-focus);
 }
 
 .search-box svg {
-  color: var(--text-tertiary);
+  color: var(--color-gray-600);
   flex-shrink: 0;
 }
 
@@ -159,87 +159,87 @@ const knowledgeItems = ref([
   background: transparent;
   border: none;
   outline: none;
-  color: var(--text-primary);
+  color: var(--color-text);
   font-size: var(--text-sm);
 }
 
 .search-box input::placeholder {
-  color: var(--text-tertiary);
+  color: var(--color-gray-600);
 }
 
 .knowledge-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: var(--space-lg);
+  gap: var(--space-6);
 }
 
 .knowledge-card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-primary);
+  background: var(--color-gray-100);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: var(--space-lg);
+  padding: var(--space-6);
   transition: all var(--transition-base);
   cursor: pointer;
 }
 
 .knowledge-card:hover {
-  background: var(--bg-tertiary);
-  border-color: var(--border-accent);
+  background: var(--color-gray-200);
+  border-color: var(--border-color-hover);
   box-shadow: var(--shadow-lg);
   transform: translateY(-2px);
 }
 
 .card-header {
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-4);
 }
 
 .category-badge {
   display: inline-block;
-  padding: var(--space-xs) var(--space-sm);
-  background: var(--bg-hover);
-  color: var(--text-accent);
-  border: 1px solid var(--border-accent);
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-gray-300);
+  color: var(--color-accent);
+  border: 1px solid var(--border-color-focus);
   border-radius: var(--radius-sm);
   font-size: var(--text-xs);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-medium);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: var(--tracking-wide);
 }
 
 .card-title {
   font-size: var(--text-xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-primary);
-  margin-bottom: var(--space-sm);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
 }
 
 .card-description {
   font-size: var(--text-sm);
-  color: var(--text-secondary);
-  margin-bottom: var(--space-lg);
-  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+  line-height: var(--leading-relaxed);
 }
 
 .card-actions {
   display: flex;
-  gap: var(--space-sm);
+  gap: var(--space-2);
 }
 
 .btn-ghost {
-  padding: var(--space-xs) var(--space-md);
+  padding: var(--space-1) var(--space-4);
   background: transparent;
-  color: var(--text-secondary);
-  border: 1px solid var(--border-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--border-color-hover);
   border-radius: var(--radius-sm);
   font-size: var(--text-sm);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-medium);
   transition: all var(--transition-fast);
 }
 
 .btn-ghost:hover {
-  background: var(--bg-hover);
-  color: var(--text-accent);
-  border-color: var(--border-accent);
+  background: var(--color-gray-300);
+  color: var(--color-accent);
+  border-color: var(--border-color-focus);
 }
 
 .empty-state {
@@ -248,24 +248,24 @@ const knowledgeItems = ref([
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--space-4xl);
+  padding: var(--space-16);
   text-align: center;
-  color: var(--text-tertiary);
+  color: var(--color-gray-600);
 }
 
 .empty-state svg {
-  margin-bottom: var(--space-lg);
-  opacity: 0.5;
+  margin-bottom: var(--space-6);
+  opacity: var(--opacity-50);
 }
 
 .empty-state h3 {
   font-size: var(--text-xl);
-  color: var(--text-secondary);
-  margin-bottom: var(--space-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
 }
 
 .empty-state p {
   font-size: var(--text-sm);
-  color: var(--text-tertiary);
+  color: var(--color-gray-600);
 }
 </style>

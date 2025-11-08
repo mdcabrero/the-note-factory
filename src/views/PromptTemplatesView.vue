@@ -155,23 +155,23 @@ const selectTemplate = (template) => {
 <style scoped>
 .templates-view {
   width: 100%;
-  max-width: 1600px;
+  max-width: var(--container-2xl);
 }
 
 .view-header {
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-12);
 }
 
 .view-title {
   font-size: var(--text-4xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-primary);
-  margin-bottom: var(--space-sm);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
 }
 
 .view-subtitle {
   font-size: var(--text-lg);
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
 }
 
 .content-section {
@@ -181,28 +181,28 @@ const selectTemplate = (template) => {
 .action-bar {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
-  margin-bottom: var(--space-xl);
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
   flex-wrap: wrap;
 }
 
 .btn-primary {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-lg);
-  background: linear-gradient(135deg, var(--green-600), var(--green-500));
-  color: var(--text-primary);
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-6);
+  background: var(--color-accent);
+  color: #000000;
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-medium);
   transition: all var(--transition-base);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-base);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--green-500), var(--green-400));
-  box-shadow: var(--glow-green-md);
+  background: var(--color-accent-hover);
+  box-shadow: var(--shadow-accent);
   transform: translateY(-1px);
 }
 
@@ -215,18 +215,18 @@ const selectTemplate = (template) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-sm);
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-primary);
+  padding: var(--space-2);
+  background: var(--color-gray-100);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
 }
 
 .btn-secondary:hover {
-  background: var(--bg-hover);
-  color: var(--text-accent);
-  border-color: var(--border-accent);
+  background: var(--color-gray-300);
+  color: var(--color-accent);
+  border-color: var(--border-color-focus);
 }
 
 .btn-secondary.full-width {
@@ -238,20 +238,20 @@ const selectTemplate = (template) => {
   max-width: 400px;
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-md);
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-primary);
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-gray-100);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   transition: border-color var(--transition-fast);
 }
 
 .search-box:focus-within {
-  border-color: var(--green-500);
+  border-color: var(--border-color-focus);
 }
 
 .search-box svg {
-  color: var(--text-tertiary);
+  color: var(--color-gray-600);
   flex-shrink: 0;
 }
 
@@ -260,18 +260,18 @@ const selectTemplate = (template) => {
   background: transparent;
   border: none;
   outline: none;
-  color: var(--text-primary);
+  color: var(--color-text);
   font-size: var(--text-sm);
 }
 
 .search-box input::placeholder {
-  color: var(--text-tertiary);
+  color: var(--color-gray-600);
 }
 
 .templates-container {
   display: grid;
   grid-template-columns: 1fr 400px;
-  gap: var(--space-xl);
+  gap: var(--space-8);
   align-items: start;
 }
 
@@ -284,31 +284,31 @@ const selectTemplate = (template) => {
 .templates-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: var(--space-4);
 }
 
 .template-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-primary);
+  background: var(--color-gray-100);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: var(--space-lg);
+  padding: var(--space-6);
   transition: all var(--transition-base);
   cursor: pointer;
 }
 
 .template-card:hover {
-  background: var(--bg-tertiary);
-  border-color: var(--border-secondary);
+  background: var(--color-gray-200);
+  border-color: var(--border-color-hover);
   transform: translateX(4px);
 }
 
 .template-card.active {
-  background: var(--bg-tertiary);
-  border-color: var(--border-accent);
-  box-shadow: var(--glow-green-sm);
+  background: var(--color-gray-200);
+  border-color: var(--border-color-focus);
+  box-shadow: var(--shadow-accent);
 }
 
 .card-content {
@@ -317,38 +317,38 @@ const selectTemplate = (template) => {
 
 .card-title {
   font-size: var(--text-lg);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-primary);
-  margin-bottom: var(--space-xs);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
 }
 
 .card-description {
   font-size: var(--text-sm);
-  color: var(--text-secondary);
-  margin-bottom: var(--space-md);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
 }
 
 .tags {
   display: flex;
-  gap: var(--space-xs);
+  gap: var(--space-1);
   flex-wrap: wrap;
 }
 
 .tag {
   display: inline-block;
-  padding: var(--space-xs) var(--space-sm);
-  background: var(--bg-hover);
-  color: var(--text-accent);
-  border: 1px solid var(--border-accent);
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-gray-300);
+  color: var(--color-accent);
+  border: 1px solid var(--border-color-focus);
   border-radius: var(--radius-sm);
   font-size: var(--text-xs);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-medium);
 }
 
 .card-actions {
   display: flex;
-  gap: var(--space-sm);
-  margin-left: var(--space-md);
+  gap: var(--space-2);
+  margin-left: var(--space-4);
 }
 
 .btn-icon {
@@ -357,24 +357,24 @@ const selectTemplate = (template) => {
   justify-content: center;
   width: 36px;
   height: 36px;
-  background: var(--bg-hover);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-secondary);
+  background: var(--color-gray-300);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--border-color-hover);
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
 }
 
 .btn-icon:hover {
-  background: var(--bg-tertiary);
-  color: var(--text-accent);
-  border-color: var(--border-accent);
+  background: var(--color-gray-200);
+  color: var(--color-accent);
+  border-color: var(--border-color-focus);
 }
 
 .preview-panel {
   position: sticky;
-  top: var(--space-xl);
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-primary);
+  top: var(--space-8);
+  background: var(--color-gray-100);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
@@ -384,15 +384,15 @@ const selectTemplate = (template) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-lg);
-  border-bottom: 1px solid var(--border-primary);
-  background: var(--bg-tertiary);
+  padding: var(--space-6);
+  border-bottom: 1px solid var(--border-color);
+  background: var(--color-gray-200);
 }
 
 .panel-header h2 {
   font-size: var(--text-xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-primary);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
 }
 
 .btn-close {
@@ -401,49 +401,49 @@ const selectTemplate = (template) => {
   justify-content: center;
   width: 32px;
   height: 32px;
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
   transition: color var(--transition-fast);
 }
 
 .btn-close:hover {
-  color: var(--text-primary);
+  color: var(--color-text);
 }
 
 .panel-content {
-  padding: var(--space-lg);
+  padding: var(--space-6);
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: var(--space-6);
 }
 
 .info-section label {
   display: block;
   font-size: var(--text-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--text-accent);
-  margin-bottom: var(--space-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-accent);
+  margin-bottom: var(--space-2);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: var(--tracking-wide);
 }
 
 .info-section p {
   font-size: var(--text-sm);
-  color: var(--text-secondary);
-  line-height: 1.6;
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
 }
 
 .prompt-preview {
-  background: var(--bg-primary);
-  border: 1px solid var(--border-primary);
+  background: var(--color-background);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: var(--space-md);
+  padding: var(--space-4);
 }
 
 .prompt-preview code {
   font-family: var(--font-mono);
   font-size: var(--text-sm);
-  color: var(--text-accent);
-  line-height: 1.6;
+  color: var(--color-accent);
+  line-height: var(--leading-relaxed);
   word-wrap: break-word;
   white-space: pre-wrap;
 }
@@ -451,8 +451,8 @@ const selectTemplate = (template) => {
 .panel-actions {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
-  margin-top: var(--space-md);
+  gap: var(--space-2);
+  margin-top: var(--space-4);
 }
 
 .empty-state {
@@ -460,24 +460,24 @@ const selectTemplate = (template) => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--space-4xl);
+  padding: var(--space-16);
   text-align: center;
-  color: var(--text-tertiary);
+  color: var(--color-gray-600);
 }
 
 .empty-state svg {
-  margin-bottom: var(--space-lg);
-  opacity: 0.5;
+  margin-bottom: var(--space-6);
+  opacity: var(--opacity-50);
 }
 
 .empty-state h3 {
   font-size: var(--text-xl);
-  color: var(--text-secondary);
-  margin-bottom: var(--space-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
 }
 
 .empty-state p {
   font-size: var(--text-sm);
-  color: var(--text-tertiary);
+  color: var(--color-gray-600);
 }
 </style>
