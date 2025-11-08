@@ -10,7 +10,12 @@ const router = createRouter({
     {
       path: '/knowledge',
       name: 'knowledge',
-      component: () => import('@/views/KnowledgeView.vue')
+      component: () => import('@/views/DirectoryView.vue')
+    },
+    {
+      path: '/knowledge/:category',
+      name: 'category',
+      component: () => import('@/views/CategoryView.vue')
     },
     {
       path: '/prompt-templates',

@@ -1,0 +1,39 @@
+{
+  "templates": [
+    {
+      "id": "tmpl-001",
+      "title": "Code Review Template",
+      "description": "Template for conducting thorough code reviews with focus on quality, performance, and security",
+      "tags": ["Development", "Review", "Quality"],
+      "content": "Please review the following code focusing on:\n\n**Code Quality**\n- Is the code readable and well-structured?\n- Are variable and function names descriptive?\n- Is there appropriate commenting where needed?\n- Does it follow established coding standards?\n\n**Performance**\n- Are there any obvious performance bottlenecks?\n- Could any operations be optimized?\n- Are resources being managed efficiently?\n\n**Security**\n- Are there any security vulnerabilities?\n- Is user input properly validated and sanitized?\n- Are authentication/authorization checks in place?\n\n**Best Practices**\n- Does it follow framework/library best practices?\n- Are there any code smells or anti-patterns?\n- Could the code be more maintainable?\n\n**Testing**\n- Are there adequate tests?\n- Do edge cases need to be considered?\n\nProvide specific suggestions for improvement with code examples where helpful."
+    },
+    {
+      "id": "tmpl-002",
+      "title": "Documentation Writer",
+      "description": "Generate comprehensive documentation for code, features, or APIs",
+      "tags": ["Documentation", "Writing", "Technical"],
+      "content": "Create detailed documentation for the following:\n\n**Overview**\n- What is this component/feature/API?\n- What problem does it solve?\n- When should it be used?\n\n**Installation/Setup** (if applicable)\n- Prerequisites\n- Installation steps\n- Configuration options\n\n**Usage Examples**\n- Basic usage example\n- Advanced usage examples\n- Common use cases\n- Code snippets with explanations\n\n**API Reference** (if applicable)\n- Parameters/Props\n- Return values\n- Events/Callbacks\n- Type definitions\n\n**Best Practices**\n- Recommended patterns\n- Things to avoid\n- Performance considerations\n\n**Troubleshooting**\n- Common issues and solutions\n- FAQ\n\nFormat the documentation in clear, professional markdown."
+    },
+    {
+      "id": "tmpl-003",
+      "title": "Bug Report Analysis",
+      "description": "Analyze and triage bug reports with root cause analysis and solution suggestions",
+      "tags": ["Debugging", "Analysis", "Support"],
+      "content": "Analyze this bug report and provide:\n\n**Bug Summary**\n- Brief description of the issue\n- Severity level (Critical/High/Medium/Low)\n- Affected components/features\n\n**Root Cause Analysis**\n- What is causing this bug?\n- Why wasn't it caught earlier?\n- Are there related issues?\n\n**Impact Assessment**\n- How many users are affected?\n- What functionality is broken?\n- Are there workarounds available?\n\n**Recommended Solution**\n- Immediate fix steps\n- Long-term solution\n- Code changes needed\n- Testing requirements\n\n**Prevention**\n- How to prevent similar issues?\n- What tests should be added?\n- Documentation updates needed?\n\n**Priority Recommendation**\n- Should this be fixed immediately?\n- Can it wait for next sprint?\n- Justification for priority level"
+    },
+    {
+      "id": "tmpl-004",
+      "title": "Feature Planning Assistant",
+      "description": "Help plan and design new features with technical specifications and user stories",
+      "tags": ["Planning", "Design", "Product"],
+      "content": "Help me plan the following feature:\n\n**Feature Overview**\n- What is the feature?\n- What user problem does it solve?\n- What are the key requirements?\n\n**User Stories**\nGenerate user stories in the format:\n\"As a [user type], I want [goal] so that [benefit]\"\n\n**Technical Specification**\n- Components/modules needed\n- Data models required\n- API endpoints (if applicable)\n- Third-party integrations\n\n**User Interface**\n- Key screens/views\n- User flow diagram\n- Interaction patterns\n\n**Implementation Plan**\n- Break down into tasks\n- Estimate complexity\n- Identify dependencies\n- Suggest implementation order\n\n**Acceptance Criteria**\n- How do we know it's done?\n- What tests need to pass?\n- Performance requirements\n\n**Risks and Considerations**\n- Potential challenges\n- Technical debt implications\n- Scalability concerns"
+    },
+    {
+      "id": "tmpl-005",
+      "title": "Refactoring Advisor",
+      "description": "Get suggestions for refactoring code to improve quality, maintainability, and performance",
+      "tags": ["Refactoring", "Code Quality", "Development"],
+      "content": "Analyze this code and suggest refactoring improvements:\n\n**Current Issues**\n- What problems exist in the current code?\n- Code smells or anti-patterns\n- Maintainability concerns\n\n**Refactoring Opportunities**\n1. **Extract Method/Function**\n   - Which code blocks should be extracted?\n   - Suggested function names\n\n2. **Simplify Logic**\n   - Can conditionals be simplified?\n   - Can nested loops be flattened?\n\n3. **Improve Naming**\n   - Better variable names\n   - More descriptive function names\n\n4. **Design Patterns**\n   - Which patterns could apply?\n   - How would they improve the code?\n\n5. **Performance**\n   - Optimization opportunities\n   - Better data structures\n\n**Refactored Code**\nProvide the refactored version with:\n- Clear comments explaining changes\n- Before/after comparison\n- Why the changes improve the code\n\n**Migration Strategy**\n- How to refactor safely?\n- What tests are needed?\n- Backward compatibility considerations?"
+    }
+  ]
+}

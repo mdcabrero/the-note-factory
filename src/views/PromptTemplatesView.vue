@@ -1,39 +1,71 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useUiStore } from '@/stores/ui'
+import { useTemplatesStore } from '@/stores/templates'
+import AddEditTemplateModal from '@/components/AddEditTemplateModal.vue'
 
 const uiStore = useUiStore()
+const templatesStore = useTemplatesStore()
+
 uiStore.setActiveView('prompt-templates')
 
-// Placeholder data
-const templates = ref([
-  {
-    id: 1,
-    title: 'Code Review Template',
-    description: 'Template for conducting thorough code reviews',
-    tags: ['Development', 'Review'],
-    prompt: 'Review the following code and provide feedback on...'
-  },
-  {
-    id: 2,
-    title: 'Documentation Writer',
-    description: 'Generate comprehensive documentation',
-    tags: ['Documentation', 'Writing'],
-    prompt: 'Create documentation for the following feature...'
-  },
-  {
-    id: 3,
-    title: 'Bug Report Analysis',
-    description: 'Analyze and triage bug reports',
-    tags: ['Debugging', 'Analysis'],
-    prompt: 'Analyze this bug report and suggest solutions...'
-  }
-])
-
+const searchQuery = ref('')
 const selectedTemplate = ref(null)
+const showTemplateModal = ref(false)
+const templateToEdit = ref(null)
+
+const allTemplates = computed(() => templatesStore.templates)
+
+const filteredTemplates = computed(() => {
+  if (!searchQuery.value.trim()) {
+    return allTemplates.value
+  }
+  return templatesStore.searchTemplates(searchQuery.value)
+})
 
 const selectTemplate = (template) => {
   selectedTemplate.value = template
+}
+
+const openNewTemplateModal = () => {
+  templateToEdit.value = null
+  showTemplateModal.value = true
+}
+
+const openEditTemplateModal = (template) => {
+  templateToEdit.value = template
+  showTemplateModal.value = true
+}
+
+const closeTemplateModal = () => {
+  showTemplateModal.value = false
+  templateToEdit.value = null
+}
+
+const handleCopyTemplate = async (templateId) => {
+  const success = await templatesStore.copyToClipboard(templateId)
+  if (success) {
+    uiStore.addNotification({
+      type: 'success',
+      message: 'Template copied to clipboard!',
+      duration: 3000
+    })
+  } else {
+    uiStore.addNotification({
+      type: 'error',
+      message: 'Failed to copy template',
+      duration: 3000
+    })
+  }
+}
+
+const handleExport = () => {
+  templatesStore.exportTemplates()
+  uiStore.addNotification({
+    type: 'success',
+    message: 'Templates exported successfully!',
+    duration: 3000
+  })
 }
 </script>
 
@@ -46,7 +78,7 @@ const selectTemplate = (template) => {
 
     <div class="content-section">
       <div class="action-bar">
-        <button class="btn-primary">
+        <button class="btn-primary" @click="openNewTemplateModal">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
@@ -58,12 +90,18 @@ const selectTemplate = (template) => {
             <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
             <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
-          <input type="text" placeholder="Search templates..." />
+          <input
+            v-model="searchQuery"
+            type="text"
+            placeholder="Search templates..."
+            aria-label="Search templates"
+          />
         </div>
 
-        <button class="btn-secondary">
+        <button class="btn-secondary" @click="handleExport" title="Export templates">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
       </div>
@@ -72,7 +110,7 @@ const selectTemplate = (template) => {
         <!-- Templates List -->
         <div class="templates-list">
           <article
-            v-for="template in templates"
+            v-for="template in filteredTemplates"
             :key="template.id"
             class="template-card"
             :class="{ 'active': selectedTemplate?.id === template.id }"
@@ -81,18 +119,28 @@ const selectTemplate = (template) => {
             <div class="card-content">
               <h3 class="card-title">{{ template.title }}</h3>
               <p class="card-description">{{ template.description }}</p>
-              <div class="tags">
+              <div class="tags" v-if="template.tags && template.tags.length > 0">
                 <span v-for="tag in template.tags" :key="tag" class="tag">{{ tag }}</span>
               </div>
             </div>
             <div class="card-actions">
-              <button class="btn-icon" @click.stop="">
+              <button
+                class="btn-icon"
+                @click.stop="openEditTemplateModal(template)"
+                title="Edit template"
+                aria-label="Edit template"
+              >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </button>
-              <button class="btn-icon" @click.stop="">
+              <button
+                class="btn-icon"
+                @click.stop="handleCopyTemplate(template.id)"
+                title="Copy to clipboard"
+                aria-label="Copy to clipboard"
+              >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
                   <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -102,7 +150,7 @@ const selectTemplate = (template) => {
           </article>
 
           <!-- Empty state -->
-          <div v-if="templates.length === 0" class="empty-state">
+          <div v-if="allTemplates.length === 0" class="empty-state">
             <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/>
               <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/>
@@ -111,6 +159,22 @@ const selectTemplate = (template) => {
             </svg>
             <h3>No templates yet</h3>
             <p>Create your first prompt template to get started</p>
+            <button class="btn-primary" @click="openNewTemplateModal" style="margin-top: var(--space-4);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <span>Create Template</span>
+            </button>
+          </div>
+
+          <!-- No Search Results -->
+          <div v-else-if="filteredTemplates.length === 0 && searchQuery" class="empty-state">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+              <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <h3>No results found</h3>
+            <p>Try different search terms</p>
           </div>
         </div>
 
@@ -149,6 +213,13 @@ const selectTemplate = (template) => {
         </aside>
       </div>
     </div>
+
+    <!-- Add/Edit Template Modal -->
+    <AddEditTemplateModal
+      :show="showTemplateModal"
+      :template="templateToEdit"
+      @close="closeTemplateModal"
+    />
   </div>
 </template>
 

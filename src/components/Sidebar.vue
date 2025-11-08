@@ -135,13 +135,13 @@ import { RouterLink } from 'vue-router'
 }
 
 /* Active state */
-.nav-link.router-link-exact-active {
+.nav-link.router-link-active {
   background: var(--color-accent);
   color: #000000;
   box-shadow: var(--shadow-accent);
 }
 
-.nav-link.router-link-exact-active:hover {
+.nav-link.router-link-active:hover {
   background: var(--color-accent-hover);
   box-shadow: var(--shadow-accent);
 }
